@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: events
+
+  datasource:
+    url: jdbc:mysql://event-db.cr4oiiwkm0p1.us-east-1.rds.amazonaws.com:3306/event-db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: baker1999
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+jwt:
+  key: "4b376edfde6c89d86244b37e6604446b21b846185857e362b094f4cc8b370abe"
+  expiration: 86400
+  refresh_token:
+    expiration: 604800
+
+
