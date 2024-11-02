@@ -3,10 +3,10 @@ spring:
     name: events
 
   datasource:
-    url: jdbc:mysql://event-db.cr4oiiwkm0p1.us-east-1.rds.amazonaws.com:3306/event-db
+    url: jdbc:mysql://events.cr4oiiwkm0p1.us-east-1.rds.amazonaws.com:3306/eventdb
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: baker1999
+    password: Baker554422
 
   jpa:
     hibernate:
