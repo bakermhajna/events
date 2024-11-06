@@ -4,6 +4,7 @@ package com.events.events.services;
 import com.events.events.repositories.MediaRepository;
 import com.events.events.utils.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.ResponseBytes;
@@ -30,16 +31,21 @@ public class AwsS3Service {
     @Autowired
     private  S3AsyncClient s3AsyncClient;
 
+    @Value("${cloud.aws.bucket}")
+    private String bucketName;
 
-    public CompletableFuture<String> uploadLocalFileAsync(String key, MultipartFile file) {
+    @Value("${cloud.aws.region.static}")
+    private String reagon;
+
+
+    public CompletableFuture<String> uploadLocalFileAsync(MultipartFile file) {
         try {
-            String fileExtention= FileUtils.getFileExtension(file);
-            String savedFileName=key+"."+fileExtention;
+            String FileName=file.getOriginalFilename()+"."+FileUtils.getFileExtension(file);
 
             // Prepare the PutObjectRequest
             PutObjectRequest objectRequest = PutObjectRequest.builder()
-                    .bucket("bakermhajna")  // Replace with your actual bucket name
-                    .key(savedFileName)
+                    .bucket(bucketName)  // Replace with your actual bucket name
+                    .key(FileName)
                     .build();
 
             // Convert MultipartFile to bytes
@@ -53,11 +59,11 @@ public class AwsS3Service {
                     System.err.println("Failed to upload file: " + ex.getMessage());
                     throw new RuntimeException("Failed to upload file", ex);
                 } else {
-                    System.out.println("File uploaded successfully to " + "bakermhajna" + "/" + savedFileName);
+                    System.out.println("File uploaded successfully to " + bucketName + "/" + FileName);
                 }
             }).thenApply(resp -> {
                 // Construct the URL of the uploaded file
-                return "https://" + "bakermhajna" + ".s3." + "us-east-1" + ".amazonaws.com/" + savedFileName;
+                return "https://" + bucketName + ".s3." + reagon + ".amazonaws.com/" + FileName;
             });
         } catch (Exception e) {
             throw new RuntimeException("Failed to read file bytes", e);
@@ -70,31 +76,6 @@ public class AwsS3Service {
         for (Bucket bucket : listBucketsResponse.buckets()) {
             System.out.println(bucket.name());
         }
-    }
-
-
-    public CompletableFuture<Void> getObjectBytesAsync(String keyName) {
-        GetObjectRequest objectRequest = GetObjectRequest.builder()
-                .key(keyName)
-                .bucket("bakermhajna")
-                .build();
-
-        CompletableFuture<ResponseBytes<GetObjectResponse>> response = s3AsyncClient.getObject(objectRequest, AsyncResponseTransformer.toBytes());
-        return response.thenAccept(objectBytes -> {
-            try {
-                byte[] data = objectBytes.asByteArray();
-                Path filePath = Paths.get("/home/baker/Downloads/"+keyName);
-                Files.write(filePath, data);
-                System.out.println("Successfully obtained bytes from an S3 object");
-            } catch (IOException ex) {
-                throw new RuntimeException("Failed to write data to file", ex);
-            }
-        }).whenComplete((resp, ex) -> {
-            if (ex != null) {
-                System.out.println(ex);
-                throw new RuntimeException("Failed to get object bytes from S3", ex);
-            }
-        });
     }
 
 

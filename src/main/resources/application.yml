@@ -33,6 +33,7 @@ cloud:
       secret-key: 'y2CQwdMnt2+Pwi5k40EQ4pvWqVjTID7WLVwddM8R'
     region:
       static: us-east-1
+    bucket: bakermhajna
 
 
 #cloud:
