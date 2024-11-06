@@ -3,7 +3,7 @@ spring:
     name: events
 
   datasource:
-    url: jdbc:mysql://events.cr4oiiwkm0p1.us-east-1.rds.amazonaws.com:3306/eventdb
+    url: jdbc:mysql://events.cr4oiiwkm0p1.us-east-1.rds.amazonaws.com:3306/deVelopingDB
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: Baker554422
@@ -15,10 +15,31 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
+
+
+
 jwt:
   key: "4b376edfde6c89d86244b37e6604446b21b846185857e362b094f4cc8b370abe"
   expiration: 86400
   refresh_token:
     expiration: 604800
 
+
+
+cloud:
+  aws:
+    credentials:
+      access-key: AKIA5IJOWVZLUMBEUTEX
+      secret-key: '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'
+    region:
+      static: us-east-1
+
+
+#cloud:
+#  aws:
+#    credentials:
+#      access-key: ${AWS_ACCESS_KEY_ID}
+#      secret-key: ${AWS_SECRET_ACCESS_KEY}
+#    region:
+#      static: us-east-1
 

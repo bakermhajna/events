@@ -20,8 +20,12 @@ public class Media {
     private String filePath;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event_id", nullable = true)
     private Event event;
+
+    @ManyToOne
+    @JoinColumn(name = "group_data_id", nullable = true)
+    private GroupData groupData;
 
     // Getters and Setters
 }
