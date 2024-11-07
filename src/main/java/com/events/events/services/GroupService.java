@@ -31,12 +31,17 @@ public class GroupService {
     @Autowired
     private EventService eventService;
 
+    @Autowired
+    private MediaService mediaService;
+
     public GroupData createGroup(GroupDataDto groupDataDto, Customer currentCustomer){
         CustomerDto admin=CustomerMapper.mapToCustomerDto(currentCustomer);
-        groupDataDto.setAdmin(admin);
-        groupDataDto.setUsers(Set.of(admin));
-       GroupData groupData = GroupDataMapper.mapToGroupData(groupDataDto);
-       return groupDataRepository.save(groupData);
+        groupDataDto.setAdmin(admin); groupDataDto.setUsers(Set.of(admin));
+       GroupData savedGroupData= groupDataRepository.save( GroupDataMapper.mapToGroupData(groupDataDto));
+        if(groupDataDto.getFilePath()!=null){
+            mediaService.addMediaForGroup(savedGroupData,groupDataDto.getFilePath());
+        }
+       return savedGroupData;
 
     }
 
