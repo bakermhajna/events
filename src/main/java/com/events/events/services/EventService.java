@@ -24,10 +24,16 @@ public class EventService {
     @Autowired
     private CityService cityService;
 
+    @Autowired
+    private MediaService mediaService;
+
     public Event addEvent(EventDto eventdto , Customer customer){
         City city=cityService.findByID(eventdto.getCity().getId());
-        Event event = EventMapper.mapToEvent(eventdto,city,customer);
-        return eventRepository.save(event);
+        Event savedEvent = eventRepository.save(EventMapper.mapToEvent(eventdto,city,customer));
+        if(eventdto.getFilePath()!=null) {
+            mediaService.addMediaForEvent(savedEvent, eventdto.getFilePath());
+        }
+        return savedEvent;
     }
 
     public EventDto getEventByIdForCustomer(Long id, Customer customer){

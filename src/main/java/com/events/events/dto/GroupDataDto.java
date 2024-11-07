@@ -18,4 +18,6 @@ public class GroupDataDto {
 
     private Set<CustomerDto> users;
 
+    private String filePath;
+
 }
