@@ -30,10 +30,7 @@ public class EventService {
     public Event addEvent(EventDto eventdto , Customer customer){
         City city=cityService.findByID(eventdto.getCity().getId());
         Event savedEvent = eventRepository.save(EventMapper.mapToEvent(eventdto,city,customer));
-        if(eventdto.getFilePath()!=null) {
-            mediaService.addMediaForEvent(savedEvent, eventdto.getFilePath());
-        }
-        return savedEvent;
+        return savedEvent; ///must return eventdto
     }
 
     public EventDto getEventByIdForCustomer(Long id, Customer customer){

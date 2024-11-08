@@ -16,6 +16,7 @@ public class InvationMapper {
 
     public static InvationDto mapToInvitationDto(Invitation invitation){
 
+
         return InvationDto.builder()
                 .id(invitation.getId())
                 .eventDto(EventMapper.mapToEventDto(invitation.getEvent()))

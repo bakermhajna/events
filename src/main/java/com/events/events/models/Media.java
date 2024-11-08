@@ -1,10 +1,8 @@
 package com.events.events.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
@@ -21,10 +19,15 @@ public class Media {
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = true)
+    @JsonBackReference
+    @ToString.Exclude
     private Event event;
+
 
     @ManyToOne
     @JoinColumn(name = "group_data_id", nullable = true)
+    @JsonBackReference
+    @ToString.Exclude
     private GroupData groupData;
 
     // Getters and Setters

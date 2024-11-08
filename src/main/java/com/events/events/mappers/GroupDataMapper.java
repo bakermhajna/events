@@ -5,6 +5,8 @@ import com.events.events.models.Customer;
 import com.events.events.models.GroupData;
 import com.events.events.dto.CustomerDto;
 import com.events.events.dto.GroupDataDto;
+import com.events.events.models.Media;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,17 +21,28 @@ public class GroupDataMapper {
                 .name(groupData.getName())
                 .admin(CustomerMapper.mapToCustomerDto(groupData.getAdmin()))
                 .users(customersDto)
+                .filePath(groupData.getImageUrls().stream()
+                        .map(Media::getFilePath)
+                        .collect(Collectors.toList()))
                 .build();
     }
 
     public static GroupData mapToGroupData(GroupDataDto groupDataDto){
         Set<Customer> customers= groupDataDto.getUsers().stream().map(CustomerMapper::mapToCustomer).collect(Collectors.toSet());
-        return GroupData.builder()
-                .id(groupDataDto.getId())
-                .name(groupDataDto.getName())
-                .admin(CustomerMapper.mapToCustomer(groupDataDto.getAdmin()))
-                .users(groupDataDto.getUsers() != null ? customers : Set.of())
-                .build();
+        GroupData groupData=new GroupData();
+        groupData.setId(groupDataDto.getId());
+        groupData.setName(groupDataDto.getName());
+        groupData.setAdmin(CustomerMapper.mapToCustomer(groupDataDto.getAdmin()));
+        groupData.setUsers(customers);
+        groupData.setImageUrls(
+                groupDataDto.getFilePath().stream()
+                        .map(filePath -> Media.builder()
+                                .filePath(filePath)
+                                .groupData(groupData)
+                                .build())
+                        .collect(Collectors.toList())
+        );
+        return groupData;
     }
 
 }

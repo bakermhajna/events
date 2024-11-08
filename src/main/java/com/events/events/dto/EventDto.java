@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Data
@@ -34,6 +35,6 @@ public class EventDto {
 
     private GroupDataDto group;
 
-    private String filePath;
+    private List<String> filePath;
 
 }
