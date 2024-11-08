@@ -1,5 +1,6 @@
 package com.events.events.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,6 +35,10 @@ public class GroupData {
             inverseJoinColumns = @JoinColumn(name = "customer_id")
     )
     private Set<Customer> users = new HashSet<>();
+
+    @OneToMany(mappedBy = "groupData", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private List<Media> imageUrls;
 
     // Getters and Setters
 }

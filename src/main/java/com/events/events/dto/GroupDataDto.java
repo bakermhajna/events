@@ -3,6 +3,7 @@ package com.events.events.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -18,6 +19,6 @@ public class GroupDataDto {
 
     private Set<CustomerDto> users;
 
-    private String filePath;
+    private List<String> filePath;
 
 }

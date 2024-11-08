@@ -9,6 +9,7 @@ import com.events.events.models.Event;
 import com.events.events.models.GroupData;
 import com.events.events.dto.CustomerDto;
 import com.events.events.dto.GroupDataDto;
+import com.events.events.models.Media;
 import com.events.events.models.requests.AddCustomerToGroup;
 import com.events.events.models.requests.CrateEventToGroup;
 import com.events.events.models.responses.GroupDataResponse;
@@ -38,9 +39,6 @@ public class GroupService {
         CustomerDto admin=CustomerMapper.mapToCustomerDto(currentCustomer);
         groupDataDto.setAdmin(admin); groupDataDto.setUsers(Set.of(admin));
        GroupData savedGroupData= groupDataRepository.save( GroupDataMapper.mapToGroupData(groupDataDto));
-        if(groupDataDto.getFilePath()!=null){
-            mediaService.addMediaForGroup(savedGroupData,groupDataDto.getFilePath());
-        }
        return savedGroupData;
 
     }
