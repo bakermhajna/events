@@ -2,6 +2,7 @@ package com.events.events.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,14 +22,19 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private LocalDate date;
 
+    @NotNull
     private String location;
 
+    @NotNull
     private String description;
 
+    @NotNull
     private Integer capacity;
 
     private String status;
@@ -37,6 +43,7 @@ public class Event {
     @JoinColumn(name = "Customer_id")
     private Customer customer;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "city_id")
     private City city;

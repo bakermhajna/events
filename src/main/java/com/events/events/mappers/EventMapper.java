@@ -45,14 +45,15 @@ public class EventMapper {
 
         // Set the group(s) from the parameter
         event.setGroup(eventDto.getGroup() != null ?GroupDataMapper.mapToGroupData(eventDto.getGroup()):null);
-        event.setImageUrls(
-                eventDto.getFilePath().stream()
-                        .map(filePath -> Media.builder()
-                                .filePath(filePath)
-                                .event(event)
-                                .build())
-                        .collect(Collectors.toList())
-        );
+        event.setImageUrls(eventDto.getFilePath() != null ?
+                        eventDto.getFilePath().stream()
+                                .map(filePath -> Media.builder()
+                                        .filePath(filePath)
+                                        .event(event)
+                                        .build())
+                                .collect(Collectors.toList())
+                :null
+                );
 
         return event;
     }

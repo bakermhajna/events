@@ -5,6 +5,7 @@ import com.events.events.dto.EventDto;
 import com.events.events.models.responses.Response;
 import com.events.events.services.EventService;
 import com.events.events.utils.ContextHolder;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class EventController {
     private EventService eventService;
 
     @PostMapping("/addevent")
-    public ResponseEntity<Response> addEvent(@RequestBody EventDto eventdto) {
+    public ResponseEntity<Response> addEvent(@Valid @RequestBody EventDto eventdto) {
         Customer currentCustomer = ContextHolder.getCustomerFromContext();
         eventService.addEvent(eventdto,currentCustomer);
         return ResponseEntity.ok(Response.builder()

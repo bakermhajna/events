@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,12 +25,15 @@ public class Customer implements UserDetails {
     @Id
     private String id;
 
+    @NotNull
     private String name;
 
+    @Email
     private String email;
 
     private String password;
 
+    @NotNull
     private String phoneNumber;
 
     @Override

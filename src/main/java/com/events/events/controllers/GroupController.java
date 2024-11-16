@@ -13,6 +13,7 @@ import com.events.events.models.responses.GroupDataResponse;
 import com.events.events.models.responses.Response;
 import com.events.events.services.GroupService;
 import com.events.events.utils.ContextHolder;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ public class GroupController {
     private GroupService groupService;
 
     @PostMapping("/creategroup")
-    public ResponseEntity<CreatedGroupResponse> createGroup(@RequestBody GroupDataDto groupDataDto){
+    public ResponseEntity<CreatedGroupResponse> createGroup(@Valid @RequestBody GroupDataDto groupDataDto){
         Customer currentCustomer = ContextHolder.getCustomerFromContext();
         return ResponseEntity.ok(
                 CreatedGroupResponse.builder()
@@ -36,7 +37,7 @@ public class GroupController {
     }
 
     @PostMapping("/adduser")
-    public ResponseEntity<Response> addUser(@RequestBody AddCustomerToGroup addCustomerToGroup){
+    public ResponseEntity<Response> addUser(@Valid@RequestBody AddCustomerToGroup addCustomerToGroup){
         groupService.addCustomerToGroup(addCustomerToGroup);
         return ResponseEntity.ok(Response.builder()
                 .msg("Customer added")
@@ -44,7 +45,7 @@ public class GroupController {
     }
 
     @PostMapping("/createevent")
-    public ResponseEntity<CreateEventToGroupResponse> createEvent(@RequestBody CrateEventToGroup crateEventToGroup){
+    public ResponseEntity<CreateEventToGroupResponse> createEvent(@Valid@RequestBody CrateEventToGroup crateEventToGroup){
         Customer currentCustomer = ContextHolder.getCustomerFromContext();
         Event event=groupService.createEventToGroup(crateEventToGroup , currentCustomer);
         return ResponseEntity.ok(CreateEventToGroupResponse.builder()

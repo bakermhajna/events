@@ -35,12 +35,14 @@ public class GroupDataMapper {
         groupData.setAdmin(CustomerMapper.mapToCustomer(groupDataDto.getAdmin()));
         groupData.setUsers(customers);
         groupData.setImageUrls(
-                groupDataDto.getFilePath().stream()
-                        .map(filePath -> Media.builder()
-                                .filePath(filePath)
-                                .groupData(groupData)
-                                .build())
-                        .collect(Collectors.toList())
+                groupDataDto.getFilePath()!=null?
+                        groupDataDto.getFilePath().stream()
+                                .map(filePath -> Media.builder()
+                                        .filePath(filePath)
+                                        .groupData(groupData)
+                                        .build())
+                                .collect(Collectors.toList())
+                        : null
         );
         return groupData;
     }
