@@ -1,6 +1,7 @@
 package com.events.events.config;
 import com.events.events.services.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +18,8 @@ import org.springframework.web.client.RestTemplate;
 @RequiredArgsConstructor
 public class AppConfig {
 
-    private final CustomerService userService;
+    @Autowired
+    private  CustomerService userService;
 
     @Bean
     public UserDetailsService userDetailsService(){

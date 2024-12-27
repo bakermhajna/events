@@ -59,11 +59,11 @@ public class JwtService {
         return buildToken(extraClaims, Customerdetails, jwtExpiration);
     }
 
-    private String buildToken(Map<String, Object> extraClaims, Customer Customerdetails, long expiration) {
+    private String buildToken(Map<String, Object> extraClaims, Customer CustomerDetails, long expiration) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setId(Customerdetails.getId())
+                .setId(CustomerDetails.getId())
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(Date.from(Instant.now().plusSeconds(expiration)))
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
