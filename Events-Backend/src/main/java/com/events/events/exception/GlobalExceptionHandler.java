@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -46,9 +47,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorResponseDTO, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorDetailsResponse> handleBadCredentialsException(BadCredentialsException exception,
+                                                                             WebRequest webRequest) {
+        ErrorDetailsResponse errorResponseDTO = ErrorDetailsResponse.builder()
+                .apiPath(webRequest.getDescription(false))
+                .errorCode(HttpStatus.NOT_FOUND)
+                .msg(exception.getMessage())
+                .responseTime(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(errorResponseDTO, HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(customerNotFoundException.class)
     public ResponseEntity<ErrorDetailsResponse> handlecustomerNotFoundException(customerNotFoundException exception,
-                                                                             WebRequest webRequest) {
+                                                                                WebRequest webRequest) {
         ErrorDetailsResponse errorResponseDTO = ErrorDetailsResponse.builder()
                 .apiPath(webRequest.getDescription(false))
                 .errorCode(HttpStatus.NOT_FOUND)

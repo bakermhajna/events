@@ -9,6 +9,7 @@ import com.events.events.models.responses.AuthenticationResponse;
 import com.events.events.models.responses.RegistrationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,11 +31,10 @@ public class AuthService {
     //        passwordEncoder.encode(request.password())
     public AuthenticationResponse authenticate(LoginDetails request){
 
-        authenticationManager.authenticate(
+        Authentication auth=authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
-        Customer user = customerService.findByEmail(request.getEmail()).orElseThrow();
-        String jwtToken = jwtService.generateToken(user);
+        String jwtToken = jwtService.generateToken((Customer) auth.getPrincipal());
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .msg("authenticated")
