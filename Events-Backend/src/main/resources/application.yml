@@ -2,28 +2,8 @@ spring:
   application:
     name: events
 
-  datasource:
-    url: jdbc:mysql://events.cr4oiiwkm0p1.us-east-1.rds.amazonaws.com:3306/devdb
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: Baker554422
-    hikari:
-      maxLifetime: 1800000
-      idleTimeout: 600000
-      connectionTestQuery: SELECT 1
-      maximumPoolSize: 5
-      minimumIdle: 2
-
-
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
-
-
-
+  profiles:
+    active: dev
 
 jwt:
   key: "4b376edfde6c89d86244b37e6604446b21b846185857e362b094f4cc8b370abe"
@@ -42,18 +22,4 @@ cloud:
       static: us-east-1
     bucket: bakermhajna
 
-logging:
-  level:
-    com:
-      zaxxer:
-        hikari: DEBUG
-
-
-#cloud:
-#  aws:
-#    credentials:
-#      access-key: ${AWS_ACCESS_KEY_ID}
-#      secret-key: ${AWS_SECRET_ACCESS_KEY}
-#    region:
-#      static: us-east-1
 
