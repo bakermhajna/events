@@ -1,6 +1,6 @@
 import { Inject, Injectable ,PLATFORM_ID  } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { Event } from "../models/event";
 import { isPlatformBrowser } from "@angular/common";
 
@@ -43,6 +43,35 @@ constructor(@Inject(PLATFORM_ID) private platformId: Object ,public http :HttpCl
 
     console.log('Headers:', headers.get('Authorization'));
     return this.http.post<T>(`${this.baseUrl}/${endpoint}`, body, {headers: headers});
+  }
+
+
+  addEvent(formData:FormData,eventData:any):Observable<any>{
+    let token=this.get_token()
+
+    const headers = token
+      ? new HttpHeaders().set('Authorization', `Bearer ${token}`)
+      : new HttpHeaders();
+    return this.http
+      .post<{ filepath: string }>(  'http://localhost:8080/file/upload',
+        formData, 
+        {
+          headers: headers,
+        })
+      .pipe(
+        // Step 2: Use the file URL to create the event
+        switchMap((uploadResponse) => {
+          console.log(uploadResponse)
+          const eventPayload = {
+            ...eventData,
+            filePath: [uploadResponse.filepath], 
+          };
+          
+          return this.http.post(this.baseUrl+'/event/addevent', eventPayload,{
+            headers: headers,
+          });
+        })
+      )
   }
 
   getByCity<T>(cityId: number): Observable<Event[]> {
