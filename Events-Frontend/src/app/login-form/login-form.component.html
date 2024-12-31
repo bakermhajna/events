@@ -14,11 +14,10 @@
             placeholder="Enter your email"
             required
           />
-          <mat-error *ngIf="form.get('email')?.invalid && form.get('email')?.touched">
-            Please enter a valid email.
-          </mat-error>
+          @if (form.get('email')?.invalid && form.get('email')?.touched) {
+            <mat-error>Please enter a valid email.</mat-error>
+          }
         </mat-form-field>
-
         <mat-form-field appearance="fill" class="form-field">
           <mat-label>Password</mat-label>
           <input
@@ -28,11 +27,10 @@
             placeholder="Enter your password"
             required
           />
-          <mat-error *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
-            Password is required.
-          </mat-error>
+          @if (form.get('password')?.invalid && form.get('password')?.touched) {
+            <mat-error>Password is required.</mat-error>
+          }
         </mat-form-field>
-
         <div class="actions">
           <button
             mat-raised-button
@@ -44,6 +42,9 @@
           </button>
         </div>
       </form>
+      @if (loading()) {
+          <mat-spinner></mat-spinner>
+      }
     </mat-card-content>
   </mat-card>
 </div>
