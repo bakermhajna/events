@@ -2,6 +2,7 @@ package com.events.events.services;
 
 
 import com.events.events.exception.UserExistsException;
+import com.events.events.mappers.CustomerMapper;
 import com.events.events.models.Customer;
 import com.events.events.models.auth.LoginDetails;
 import com.events.events.models.auth.registerDetails;
@@ -37,6 +38,7 @@ public class AuthService {
         String jwtToken = jwtService.generateToken((Customer) auth.getPrincipal());
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .customer(CustomerMapper.mapToCustomerDto((Customer) auth.getPrincipal()))
                 .msg("authenticated")
                 .build();
     }

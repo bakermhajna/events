@@ -1,5 +1,6 @@
 package com.events.events.config;
 import com.events.events.services.CustomerService;
+import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.filter.ShallowEtagHeaderFilter;
 
 @Configuration
 @RequiredArgsConstructor
@@ -47,5 +49,10 @@ public class AppConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public Filter shallowEtagHeaderFilter() {
+        return new ShallowEtagHeaderFilter();
     }
 }
