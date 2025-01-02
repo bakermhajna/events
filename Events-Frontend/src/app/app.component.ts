@@ -18,10 +18,9 @@ import { HomePageComponent } from "./home-page/home-page.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CardComponent, NavComponent,
-    FooterComponent, GroupCardComponent,
+  imports: [RouterOutlet, NavComponent,
     MatDividerModule, MatSlideToggleModule,
-    MatIconModule, MatCardModule, MatcardComponent, MatSelectModule, MatselectComponent, HttpClientModule, LoginFormComponent, HomePageComponent],
+    MatIconModule, MatCardModule, MatSelectModule, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

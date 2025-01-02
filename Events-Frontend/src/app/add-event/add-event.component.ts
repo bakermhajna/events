@@ -3,7 +3,7 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { Mainservice } from '../main.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
+import { Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -27,7 +27,7 @@ export class AddEventComponent {
     }
   };
 
-  constructor(private service: Mainservice) { }
+  constructor(private service: Mainservice,private router:Router) { }
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -44,6 +44,7 @@ export class AddEventComponent {
     this.service.addEvent(formData,this.eventData).subscribe({
       next: (response) => {
         console.log('Event created successfully:', response);
+        this.router.navigate(["/home"]);
       },
       error: (error) => {
         console.error('Error:', error);
