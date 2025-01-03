@@ -61,4 +61,18 @@ public class AuthService {
                 .msg("User registered")
                 .build();
     }
+
+    public RegistrationResponse registerForDataInit(registerDetails request){
+        Customer user = Customer.builder()
+                .id("77f03ff1-3941-4052-8882-064eb708b78c")
+                .name(request.getName())
+                .email(request.getEmail())
+                .password(passwordEncoder.encode(request.getPassword()))
+                .phoneNumber(request.getPhoneNumber())
+                .build();
+        customerService.saveCustomer(user);
+        return RegistrationResponse.builder()
+                .msg("User registered")
+                .build();
+    }
 }

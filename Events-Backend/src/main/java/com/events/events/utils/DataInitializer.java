@@ -41,7 +41,7 @@ public class DataInitializer {
             cityRepository.save(new City(2L, "Los Angeles"));
         }
         if(customerRepository.count()==0){
-            authService.register(registerDetails.builder()
+            authService.registerForDataInit(registerDetails.builder()
                     .Email("mhajnabaker@gmail.com")
                     .name("baker")
                     .password("1234")
