@@ -42,14 +42,20 @@ public class DataInitializer {
         }
         if(customerRepository.count()==0){
             authService.registerForDataInit(registerDetails.builder()
-                    .Email("mhajnabaker@gmail.com")
+                    .Email("baker@gmail.com")
                     .name("baker")
                     .password("1234")
                     .phoneNumber("0522451755")
-                    .build());
+                    .build(),"1");
+            authService.registerForDataInit(registerDetails.builder()
+                    .Email("dodo@gmail.com")
+                    .name("dodo")
+                    .password("1234")
+                    .phoneNumber("0522451755")
+                    .build(),"2");
         }
         if(eventRepository.count()==0){
-            Customer customer=customerRepository.findByEmail("mhajnabaker@gmail.com").get();
+            Customer customer=customerRepository.findByEmail("baker@gmail.com").get();
             eventService.addEvent(EventDto.builder()
                             .name("محمد فايز بدوية")
                             .description("افراح العرايش العريس محمد فايز بدوية")

@@ -17,6 +17,7 @@ import com.events.events.repositories.GroupDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -70,6 +71,15 @@ public class GroupService {
                 .msg("")
                 .build();
 
+    }
+
+    public List<GroupDataDto> getGroupsByCustomer(String customerId) {
+        List<GroupData> groups= groupDataRepository.findAllByCustomerId(customerId);
+        return groups.stream().map(groupData -> {
+            GroupDataDto g=GroupDataMapper.mapToGroupDataDto(groupData);
+            g.setUsers(null);
+            return g;
+        }).collect(Collectors.toList());
     }
 
 }

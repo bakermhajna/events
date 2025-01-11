@@ -62,9 +62,9 @@ public class AuthService {
                 .build();
     }
 
-    public RegistrationResponse registerForDataInit(registerDetails request){
+    public RegistrationResponse registerForDataInit(registerDetails request,String id){
         Customer user = Customer.builder()
-                .id("77f03ff1-3941-4052-8882-064eb708b78c")
+                .id(id)
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))

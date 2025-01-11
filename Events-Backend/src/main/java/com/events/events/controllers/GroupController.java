@@ -5,6 +5,7 @@ import com.events.events.mappers.EventMapper;
 import com.events.events.models.Customer;
 import com.events.events.models.Event;
 import com.events.events.dto.GroupDataDto;
+import com.events.events.models.GroupData;
 import com.events.events.models.requests.AddCustomerToGroup;
 import com.events.events.models.requests.CrateEventToGroup;
 import com.events.events.models.responses.CreateEventToGroupResponse;
@@ -17,6 +18,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/group")
@@ -59,4 +62,13 @@ public class GroupController {
         GroupDataResponse groupDataResponse=groupService.getGroupData(groupid);
         return ResponseEntity.ok(groupDataResponse);
     }
+
+
+    @GetMapping("/byuser/{userid}")
+    public ResponseEntity<List<GroupDataDto>> getGroupDataByUser(@PathVariable String userid){
+        List<GroupDataDto> groups=groupService.getGroupsByCustomer(userid);
+        return ResponseEntity.ok(groups);
+    }
+
+
 }
