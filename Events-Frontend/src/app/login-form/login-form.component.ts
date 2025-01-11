@@ -1,4 +1,4 @@
-import { Input, Component, Output, EventEmitter, signal, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, signal, OnInit } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -56,8 +56,8 @@ export class LoginFormComponent implements OnInit {
       this.service.login(this.form.value).subscribe({
         next: (response) => {
           console.log(response);
-          localStorage.setItem("token",response.token)
-          localStorage.setItem("user",JSON.stringify(response.customer))
+          localStorage.setItem("token", response.body?.token || "");
+          localStorage.setItem("user",JSON.stringify(response.body?.customer))
           this.isLogedin.set(true);
           this.router.navigate(['/home']);
         },

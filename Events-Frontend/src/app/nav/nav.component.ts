@@ -1,8 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { MatselectComponent } from "../matselect/matselect.component";
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { Router ,NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nav',
@@ -11,14 +12,28 @@ import { Router } from '@angular/router';
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })
-export class NavComponent {
+export class NavComponent implements OnInit{
+  currentRoute: string = ''; // Store the current route
 
-  constructor(private router:Router){}
+  constructor(private router: Router) {}
 
-  navtoaddevent()
+  ngOnInit(): void {
+    // Listen for route changes
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        this.currentRoute = event.urlAfterRedirects; 
+      });
+  }
+  
+
+  navigate()
   {
-    this.router.navigate(["/addevent"]);
-    
+   if (this.currentRoute.includes('/home')) {
+      this.router.navigate(['/addevent']);
+    } else if (this.currentRoute.includes('/group')) {
+      this.router.navigate(['/addevent']);//to addgroup
+    } 
   }
 
 }

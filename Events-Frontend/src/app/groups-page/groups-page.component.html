@@ -1,0 +1,14 @@
+<div class="album py-5 bg-light">
+    <div class="container">
+        @if (loading()) {
+            <mat-spinner ></mat-spinner>
+          }@else{
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                @for(group of groups() ; track group.id){
+                    <app-mat-card-group [group]="group"></app-mat-card-group> 
+                }
+            </div>
+          }
+
+    </div>
+</div>

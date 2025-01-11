@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { AddEventComponent } from './add-event/add-event.component';
+import { GroupsPageComponent } from './groups-page/groups-page.component';
+import { group } from 'console';
 
 export const routes: Routes = [
     {
@@ -15,5 +17,9 @@ export const routes: Routes = [
     {
         path:"addevent",
         component:AddEventComponent
+    },
+    {
+        path:"group",
+        component:GroupsPageComponent
     }
 ];
