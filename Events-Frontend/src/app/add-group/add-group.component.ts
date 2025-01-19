@@ -9,27 +9,20 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthServiceObsv } from '../Services/authobsv.service';
 
 @Component({
-  selector: 'app-add-event',
+  selector: 'app-add-group',
   standalone: true,
   imports: [FormsModule,MatFormFieldModule,MatInputModule,MatCardModule,MatButtonModule,ReactiveFormsModule],
-  templateUrl: './add-event.component.html',
-  styleUrl: './add-event.component.css'
+  templateUrl: './add-group.component.html',
+  styleUrl: './add-group.component.css'
 })
-export class AddEventComponent implements OnInit {
-  selectedFile: File | null = null;
-  eventData = {
-    name: '',
-    description: '',
-    date: '',
-    location: '',
-    capacity:0,
-    city:{
-      id:1
-    }
-  };
-  isLoggedIn:boolean=false;
-  constructor(private service: Mainservice,private router:Router,private auth:AuthServiceObsv) { }
+export class AddGroupComponent implements OnInit {
 
+
+  selectedFile: File | null = null;
+  groupName:String='' ;
+  isLoggedIn:boolean=false;
+
+  constructor(private service: Mainservice,private router:Router,private auth:AuthServiceObsv) { }
   ngOnInit(): void {
     this.auth.getIsLoggedIn().subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
@@ -37,30 +30,27 @@ export class AddEventComponent implements OnInit {
     });
     this.auth.islogedinandroute()
   }
-
+  
+  onSubmit(): void {
+    if (!this.selectedFile || this.groupName=='') return;
+    const formData = new FormData();
+    formData.append('file', this.selectedFile, this.groupName+this.selectedFile.name);
+    this.service.createGroup(this.groupName,formData).subscribe({
+      next: (response) => {
+        console.log('group created successfully:', response);
+        this.router.navigate(["/group"]);
+      },
+      error: (error) => {
+        console.error('Error:', error);
+        alert('Failed to create group.');
+      },
+    });
+  }
+  
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
     }
   }
-
-  onSubmit(): void {
-    if (!this.selectedFile) return;
-
-    const formData = new FormData();
-    formData.append('file', this.selectedFile, this.eventData.name+this.selectedFile.name);
-    this.service.addEvent(formData,this.eventData).subscribe({
-      next: (response) => {
-        console.log('Event created successfully:', response);
-        this.router.navigate(["/home"]);
-      },
-      error: (error) => {
-        console.error('Error:', error);
-        alert('Failed to create event.');
-      },
-    });
-
-  }
-
 }

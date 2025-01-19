@@ -2,16 +2,23 @@
 style="background: #0f071f;">
 <ul class="nav nav-justified w-100" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+
+        <a [routerLink]="['/home']" >
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
             role="tab" aria-controls="home" aria-selected="true">
             <span><i class="bi bi-house-fill"></i></span>
         </button>
+          </a>
+        
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="collection-tab" data-bs-toggle="tab" data-bs-target="#collection" type="button"
+        <a [routerLink]="['/group']" >
+
+            <button class="nav-link" id="collection-tab" data-bs-toggle="tab" data-bs-target="#collection" type="button"
             role="tab" aria-controls="notif" aria-selected="false">
             <span><i class="bi bi-collection"></i></span>
         </button>
+    </a>
     </li>
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="notes-tab" data-bs-toggle="tab" data-bs-target="#notes" type="button"

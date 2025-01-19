@@ -1,4 +1,7 @@
 <div class="login-container">
+  @if (isloading) {
+    <mat-spinner></mat-spinner>
+  }@else {
   <mat-card class="login-card">
     <mat-card-header>
       <mat-card-title>Login</mat-card-title>
@@ -7,44 +10,26 @@
       <form [formGroup]="form" (ngSubmit)="submit()">
         <mat-form-field appearance="fill" class="form-field">
           <mat-label>Email</mat-label>
-          <input
-            matInput
-            type="email"
-            formControlName="email"
-            placeholder="Enter your email"
-            required
-          />
+          <input matInput type="email" formControlName="email" placeholder="Enter your email" required />
           @if (form.get('email')?.invalid && form.get('email')?.touched) {
-            <mat-error>Please enter a valid email.</mat-error>
+          <mat-error>Please enter a valid email.</mat-error>
           }
         </mat-form-field>
         <mat-form-field appearance="fill" class="form-field">
           <mat-label>Password</mat-label>
-          <input
-            matInput
-            type="password"
-            formControlName="password"
-            placeholder="Enter your password"
-            required
-          />
+          <input matInput type="password" formControlName="password" placeholder="Enter your password" required />
           @if (form.get('password')?.invalid && form.get('password')?.touched) {
-            <mat-error>Password is required.</mat-error>
+          <mat-error>Password is required.</mat-error>
           }
         </mat-form-field>
         <div class="actions">
-          <button
-            mat-raised-button
-            color="primary"
-            type="submit"
-            [disabled]="form.invalid"
-          >
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
             Login
           </button>
         </div>
       </form>
-      @if (loading()) {
-          <mat-spinner></mat-spinner>
-      }
+
     </mat-card-content>
   </mat-card>
+  }
 </div>

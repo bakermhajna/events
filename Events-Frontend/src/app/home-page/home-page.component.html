@@ -4,14 +4,11 @@
             <mat-spinner ></mat-spinner>
           }@else{
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                <!-- <app-group-card></app-group-card> -->
-                <!-- <mat-divider style="margin: 16px 0;"></mat-divider> -->
-                <!-- <app-card></app-card> -->
                 @for(event of events() ; track event.id){
                     <app-matcard [event]="event"></app-matcard>        
                 }
             </div>
           }
-
     </div>
+    <button (click)="tt()">log out</button>
 </div>

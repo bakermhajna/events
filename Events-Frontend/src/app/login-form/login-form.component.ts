@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, signal, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, signal, OnInit,effect } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +8,8 @@ import { Mainservice } from '../main.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { JwtService } from '../jwt.service';
+import { LoadingService } from '../Services/isloading.service';
+import { AuthServiceObsv } from '../Services/authobsv.service';
 
 
 @Component({
@@ -26,51 +28,50 @@ import { JwtService } from '../jwt.service';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor(private service: Mainservice, private router: Router) { }
+  isloading=false;
+  isLoggedIn: boolean = false;
+  constructor(private service: Mainservice,
+     private router: Router,
+     public auth1:AuthServiceObsv,
+     private loadingservice:LoadingService
+    ) { 
+    }
+    
 
   private jwtservice:JwtService=new JwtService;
-  public loading =signal<Boolean>(false)
-  private isLogedin=signal<Boolean>(false)
   form: FormGroup = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
   ngOnInit(): void {
-    this.checkiflogedin()
-    if(this.isLogedin()){
+
+    this.auth1.getIsLoggedIn().subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
+      console.log('Login state updated:', isLoggedIn);
+    });
+
+    if(this.isLoggedIn){
       this.router.navigate(['/home']);
     }
+    // this.checkiflogedin()
+    // if(this.auth.isLogedin()){
+    //   this.router.navigate(['/home']);
+    // }
+    // this.firebaseService
+    //   .signIn('mhajnabkr@gmail.com', 'b111aker')
+    //   .then((userCredential) => {
+    //     console.log('User signed in:', userCredential.user);
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error signing in:', error);
+    //   });
   }
   
-  checkiflogedin(){
-    let token=this.service.get_token()
-    if(token!=null){
-      if(!this.jwtservice.isTokenExpired(token)){
-        this.isLogedin.set(true);
-      }
-    }
-  }
   submit() {
     if (this.form.valid) {
-      this.loading.set(true)
-      this.service.login(this.form.value).subscribe({
-        next: (response) => {
-          console.log(response);
-          localStorage.setItem("token", response.body?.token || "");
-          localStorage.setItem("user",JSON.stringify(response.body?.customer))
-          this.isLogedin.set(true);
-          this.router.navigate(['/home']);
-        },
-        error: (err) => {
-          console.log("err");
-          console.log(err);
-          this.loading.set(false)
-        },
-        complete: () => {
-          console.log('Request completed');
-          this.loading.set(false)
-        },
-      });
+      this.loadingservice.settrue()
+      // this.auth.login(this.form.value)
+      this.auth1.login(this.form.value)
     }
   }
   @Output() submitEM = new EventEmitter();

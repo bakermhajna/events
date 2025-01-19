@@ -1,5 +1,8 @@
+import { Injectable } from "@angular/core";
 
-
+@Injectable({
+  providedIn: 'root', // Makes the service available application-wide
+})
 export class JwtService{
     isTokenExpired(token: string): boolean {
         if (!token) return true; // If no token is provided, consider it expired.

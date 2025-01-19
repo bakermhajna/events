@@ -1,30 +1,37 @@
-import { Component, signal, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, signal, OnInit,effect } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { CardComponent } from "./card/card.component";
 import { NavComponent } from "./nav/nav.component";
 import { FooterComponent } from "./footer/footer.component";
-import { GroupCardComponent } from "./group-card/group-card.component";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatCardModule } from '@angular/material/card';
-import { MatcardComponent } from "./matcard/matcard.component";
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
-import { MatselectComponent } from "./matselect/matselect.component";
 import { MatIconModule } from '@angular/material/icon';
-import { LoginFormComponent } from './login-form/login-form.component';
-import { HomePageComponent } from "./home-page/home-page.component";
+import { AuthServiceObsv } from './Services/authobsv.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, NavComponent,
     MatDividerModule, MatSlideToggleModule,
-    MatIconModule, MatCardModule, MatSelectModule, HttpClientModule],
+    MatIconModule, MatCardModule, MatSelectModule, HttpClientModule, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent  {
+export class AppComponent implements OnInit {
+  
+  public isLoggedIn=false
+  constructor(public auth:AuthServiceObsv){}
+
+  ngOnInit(): void {
+
+    this.auth.getIsLoggedIn().subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
+    });
+  }
+  
+  
 
 
   // set , update( oldvalue => {}) , {{ test() }}  

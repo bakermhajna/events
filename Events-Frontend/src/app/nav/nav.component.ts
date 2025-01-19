@@ -18,7 +18,6 @@ export class NavComponent implements OnInit{
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    // Listen for route changes
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
@@ -32,7 +31,7 @@ export class NavComponent implements OnInit{
    if (this.currentRoute.includes('/home')) {
       this.router.navigate(['/addevent']);
     } else if (this.currentRoute.includes('/group')) {
-      this.router.navigate(['/addevent']);//to addgroup
+      this.router.navigate(['/addgroup']);//to addgroup
     } 
   }
 

@@ -3,7 +3,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { AddEventComponent } from './add-event/add-event.component';
 import { GroupsPageComponent } from './groups-page/groups-page.component';
-import { group } from 'console';
+import { AddGroupComponent } from './add-group/add-group.component';
 
 export const routes: Routes = [
     {
@@ -21,5 +21,9 @@ export const routes: Routes = [
     {
         path:"group",
         component:GroupsPageComponent
+    },
+    {
+        path:"addgroup",
+        component:AddGroupComponent
     }
 ];
