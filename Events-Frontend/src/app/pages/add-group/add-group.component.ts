@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Mainservice } from '../main.service';
+import { Mainservice } from '../../Services/main.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { AuthServiceObsv } from '../Services/authobsv.service';
+import { AuthServiceObsv } from '../../Services/authobsv.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-group',
@@ -15,20 +16,24 @@ import { AuthServiceObsv } from '../Services/authobsv.service';
   templateUrl: './add-group.component.html',
   styleUrl: './add-group.component.css'
 })
-export class AddGroupComponent implements OnInit {
-
+export class AddGroupComponent implements OnInit,OnDestroy {
 
   selectedFile: File | null = null;
   groupName:String='' ;
   isLoggedIn:boolean=false;
+  sub:Subscription;
 
-  constructor(private service: Mainservice,private router:Router,private auth:AuthServiceObsv) { }
-  ngOnInit(): void {
-    this.auth.getIsLoggedIn().subscribe((isLoggedIn) => {
+  constructor(private service: Mainservice,private router:Router,private auth:AuthServiceObsv) { 
+    this.sub=this.auth.getIsLoggedIn().subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
       console.log('Login state updated:', isLoggedIn);
     });
-    this.auth.islogedinandroute()
+  }
+
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
   
   onSubmit(): void {

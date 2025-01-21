@@ -1,11 +1,11 @@
-import { Component, signal, effect, Inject, Injector } from '@angular/core';
-import { Mainservice } from '../main.service';
+import { Component, signal,OnInit, OnDestroy } from '@angular/core';
+import { Mainservice } from '../../Services/main.service';
 import { Event } from "../../models/event"
-import { MatcardComponent } from "../matcard/matcard.component";
+import { MatcardComponent } from "../../components/matcard/matcard.component";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
-import { AuthServiceObsv } from '../Services/authobsv.service';
-import { testService } from '../Services/test.service';
+import { AuthServiceObsv } from '../../Services/authobsv.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home-page',
@@ -14,7 +14,7 @@ import { testService } from '../Services/test.service';
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit,OnDestroy {
 
   tt() {
     this.auth1.logout()
@@ -22,24 +22,24 @@ export class HomePageComponent {
   public events = signal<Event[] | null>([]);
   public loading = signal<Boolean>(false)
   isLoggedIn = false
+  private subscrption:Subscription;
 
   constructor(private service: Mainservice,
     private router: Router,
     public auth1: AuthServiceObsv) {
-
+      this.subscrption=this.auth1.getIsLoggedIn().subscribe((isLoggedIn) => {
+        this.isLoggedIn = isLoggedIn;
+      });
+    }
+    
+  ngOnDestroy(): void {
+      this.subscrption.unsubscribe()
   }
 
   ngOnInit(): void {
-
-    let sub=this.auth1.getIsLoggedIn().subscribe((isLoggedIn) => {
-      this.isLoggedIn = isLoggedIn;
-    });
     if (!this.isLoggedIn) {
-      sub.unsubscribe()
       this.router.navigate(['']);
     } else {
-
-      this.auth1.islogedinandroute()
       this.loading.set(true)
       this.service.getByCity(1).subscribe({
         next: (response) => {
@@ -60,7 +60,6 @@ export class HomePageComponent {
           console.log('Request completed');
         },
       });
-      
     }
   }
 

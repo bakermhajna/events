@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
-import { Mainservice } from '../main.service';
 @Component({
   selector: 'app-matselect',
   standalone: true,

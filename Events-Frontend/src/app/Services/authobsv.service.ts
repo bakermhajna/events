@@ -1,17 +1,14 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Mainservice } from '../main.service';
-import { JwtService } from '../jwt.service';
+import { JwtService } from './jwt.service';
 import { Router } from '@angular/router';
-import { FirebaseService } from './firebase.service';
 import { LoadingService } from './isloading.service';
 import { isPlatformBrowser } from '@angular/common';
-
+import { Mainservice } from './main.service';
 @Injectable({
-    providedIn: 'root', // Makes the service available application-wide
+    providedIn: 'root',
 })
 export class AuthServiceObsv {
-    // Observable for login state
     private isLogedinSubject = new BehaviorSubject<boolean>(false);
     public isLogedin$: Observable<boolean> = this.isLogedinSubject.asObservable();
 
@@ -19,18 +16,14 @@ export class AuthServiceObsv {
         private service: Mainservice,
         private jwtservice: JwtService,
         private router: Router,
-        private firebaseService: FirebaseService,
         private lodingservice: LoadingService,
         @Inject(PLATFORM_ID) private platformId: Object ,
     ) {
         console.log('AuthService instance created');
-
-        // // Initialize login state based on token in localStorage
         const token = this.get_token();
         this.isLogedinSubject.next(!!token);
     }
 
-    // Check login state and navigate if not logged in
     islogedinandroute(): void {
         this.isLogedin$.subscribe((isLoggedIn) => {
             if (!isLoggedIn) {
@@ -39,7 +32,21 @@ export class AuthServiceObsv {
         });
     }
 
-    // Log in a user and update state
+    subscribeToEvents(): Observable<String> {
+        return new Observable(observer => {
+          const eventSource = new EventSource('http://localhost:8080/subscribe');
+          eventSource.onmessage = (event) => {
+            this.isLogedinSubject.next(event.data);
+            observer.next(event.data);
+          };
+          eventSource.onerror = (error) => {
+            observer.error(error);
+            eventSource.close();
+          };
+          return () => eventSource.close();
+        });
+      }
+
     login(body?: any): void {
         this.service.login(body).subscribe({
             next: (response) => {
@@ -60,15 +67,12 @@ export class AuthServiceObsv {
         });
     }
 
-    // Log out a user and update state
     logout(): void {
-        this.isLogedinSubject.next(false); // Update login state
-        // this.firebaseService.signout(); // Call Firebase signout method
+        this.isLogedinSubject.next(false); 
         localStorage.clear();
         this.router.navigate(['']);
     }
 
-    // Observable for login state
     getIsLoggedIn(): Observable<boolean> {
         return this.isLogedin$;
     }

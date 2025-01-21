@@ -1,5 +1,5 @@
 import { Inject, Injectable ,PLATFORM_ID  } from "@angular/core";
-import { HttpClient, HttpEvent, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient,HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, switchMap } from 'rxjs';
 import { Event } from "../models/event";
 import { isPlatformBrowser } from "@angular/common";

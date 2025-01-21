@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Mainservice } from '../main.service';
+import { Mainservice } from '../../Services/main.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { AuthServiceObsv } from '../Services/authobsv.service';
+import { AuthServiceObsv } from '../../Services/authobsv.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-event',
@@ -15,7 +16,8 @@ import { AuthServiceObsv } from '../Services/authobsv.service';
   templateUrl: './add-event.component.html',
   styleUrl: './add-event.component.css'
 })
-export class AddEventComponent implements OnInit {
+export class AddEventComponent implements OnInit,OnDestroy {
+
   selectedFile: File | null = null;
   eventData = {
     name: '',
@@ -28,15 +30,20 @@ export class AddEventComponent implements OnInit {
     }
   };
   isLoggedIn:boolean=false;
-  constructor(private service: Mainservice,private router:Router,private auth:AuthServiceObsv) { }
+  sub:Subscription;
 
-  ngOnInit(): void {
-    this.auth.getIsLoggedIn().subscribe((isLoggedIn) => {
+  constructor(private service: Mainservice,private router:Router,private auth:AuthServiceObsv) { 
+    this.sub=this.auth.getIsLoggedIn().subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn;
       console.log('Login state updated:', isLoggedIn);
     });
-    this.auth.islogedinandroute()
   }
+  
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  ngOnInit(): void {}
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -47,7 +54,6 @@ export class AddEventComponent implements OnInit {
 
   onSubmit(): void {
     if (!this.selectedFile) return;
-
     const formData = new FormData();
     formData.append('file', this.selectedFile, this.eventData.name+this.selectedFile.name);
     this.service.addEvent(formData,this.eventData).subscribe({
@@ -60,7 +66,5 @@ export class AddEventComponent implements OnInit {
         alert('Failed to create event.');
       },
     });
-
   }
-
 }
