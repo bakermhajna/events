@@ -1,22 +1,23 @@
 
-import { Injectable,signal } from '@angular/core';
+    import { Injectable,signal } from '@angular/core';
+    import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root', // Makes the service available application-wide
 })
 export class LoadingService {
 
-    public IsLoading = signal<boolean>(false);
-
+    public IsLoading$ = new Subject<boolean>()
     settrue(){
-        this.IsLoading.set(true)
+        this.IsLoading$.next(true)
     }
 
     setfalse(){
-        this.IsLoading.set(false)
+        this.IsLoading$.next(false)
     }
 
-    changestate(){
-        this.IsLoading.update(old=>!old)
+    getstate(){
+        return this.IsLoading$.asObservable()
     }
+
 }

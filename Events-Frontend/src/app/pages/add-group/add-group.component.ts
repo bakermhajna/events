@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthServiceObsv } from '../../Services/authobsv.service';
 import { Subscription } from 'rxjs';
+import { LoadingService } from '../../Services/isloading.service';
 
 @Component({
   selector: 'app-add-group',
@@ -21,19 +22,23 @@ export class AddGroupComponent implements OnInit,OnDestroy {
   selectedFile: File | null = null;
   groupName:String='' ;
   isLoggedIn:boolean=false;
-  sub:Subscription;
+  loadingsub:Subscription
+  IsLoading:boolean=false
 
-  constructor(private service: Mainservice,private router:Router,private auth:AuthServiceObsv) { 
-    this.sub=this.auth.getIsLoggedIn().subscribe((isLoggedIn) => {
-      this.isLoggedIn = isLoggedIn;
-      console.log('Login state updated:', isLoggedIn);
-    });
+
+  constructor(private service: Mainservice,
+    private router:Router,
+    public loadingservice: LoadingService
+  ) { 
+    this.loadingsub=this.loadingservice.getstate().subscribe((isLoading)=>{
+      this.IsLoading=isLoading
+    })
   }
 
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.loadingsub.unsubscribe()
   }
   
   onSubmit(): void {
@@ -42,8 +47,7 @@ export class AddGroupComponent implements OnInit,OnDestroy {
     formData.append('file', this.selectedFile, this.groupName+this.selectedFile.name);
     this.service.createGroup(this.groupName,formData).subscribe({
       next: (response) => {
-        console.log('group created successfully:', response);
-        this.router.navigate(["/group"]);
+        this.router.navigate(["/groups"]);
       },
       error: (error) => {
         console.error('Error:', error);

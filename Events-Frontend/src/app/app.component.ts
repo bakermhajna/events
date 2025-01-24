@@ -26,8 +26,10 @@ export class AppComponent implements OnInit,OnDestroy {
   public somedata=signal<String[]>([])
   private sub:Subscription;
 
-  constructor(public auth:AuthServiceObsv){
-    this.sub=this.auth.getIsLoggedIn().subscribe((isLoggedIn) => {
+  constructor(
+    private authService: AuthServiceObsv
+  ) {
+    this.sub=this.authService.getIsLoggedIn().subscribe((isLoggedIn) => {
       this.isLoggedIn = isLoggedIn
     });
   }

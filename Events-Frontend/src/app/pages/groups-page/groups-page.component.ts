@@ -3,16 +3,16 @@ import { Mainservice } from '../../Services/main.service';
 import { group } from '../../models/group';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardGroupComponent } from '../../components/mat-card-group/mat-card-group.component';
-import { Router } from '@angular/router';
-import { AuthServiceObsv } from '../../Services/authobsv.service';
 import { Subscription } from 'rxjs';
+import { RouterLinkWithHref } from '@angular/router';
+import { AuthServiceObsv } from '../../Services/authobsv.service';
 
 
 
 @Component({
   selector: 'app-groups-page',
   standalone: true,
-  imports: [MatProgressSpinnerModule, MatCardGroupComponent],
+  imports: [MatProgressSpinnerModule, MatCardGroupComponent,RouterLinkWithHref],
   templateUrl: './groups-page.component.html',
   styleUrl: './groups-page.component.css'
 })
@@ -22,18 +22,10 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
   public loading = signal<Boolean>(false)
   isLoggedIn = false;
   private user = this.service.getUserFromLocalStorage()
-  private subscrption: Subscription;
 
-  constructor(private service: Mainservice,
-    private router: Router,
-    public auth1: AuthServiceObsv) {
-    this.subscrption = this.auth1.getIsLoggedIn().subscribe((isLoggedIn) => {
-      this.isLoggedIn = isLoggedIn;
-    });
-  }
+  constructor(private service: Mainservice) {}
   
   ngOnDestroy(): void {
-    this.subscrption.unsubscribe()
   }
 
   ngOnInit(): void {
@@ -59,7 +51,6 @@ export class GroupsPageComponent implements OnInit, OnDestroy {
         },
         complete: () => {
           this.loading.set(false)
-          console.log('Request completed');
         },
       }
     )

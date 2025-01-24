@@ -1,25 +1,32 @@
-import { Injectable } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
+import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root', // Makes the service available application-wide
+  providedIn: 'root',
 })
 export class JwtService{
-    isTokenExpired(token: string): boolean {
-        if (!token) return true; // If no token is provided, consider it expired.
-    
+
+  constructor(@Inject(PLATFORM_ID) private platformId: Object){}
+
+    isTokenExpired(token: string|null): boolean {
+        if (!token) return true; 
         try {
-          // Decode the JWT payload (Base64 URL-decoded)
           const payload = JSON.parse(atob(token.split('.')[1]));
-            console.log(payload)
-          // Extract the expiration time (`exp`) in seconds
-          const expirationDate = payload.exp * 1000; // Convert to milliseconds
-            console.log(expirationDate)
-          // Compare expiration date with current time
+          const expirationDate = payload.exp * 1000; 
           return Date.now() > expirationDate;
         } catch (error) {
           console.error('Invalid token format:', error);
-          return true; // If the token cannot be decoded, consider it expired.
+          return true; 
         }
       }
 
+      get_token(){
+        let token: string | null = null;
+        if (isPlatformBrowser(this.platformId)) {
+          token = localStorage.getItem('token');
+        } else {
+          console.warn('Not running in a browser environment!');
+        }
+        return token
+      }
 }

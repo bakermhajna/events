@@ -1,0 +1,132 @@
+Date : 2025-01-22 20:17:58
+Directory : c:\Users\kha12\IdeaProjects\events\Events-Frontend
+Total : 81 files,  16273 codes, 101 comments, 364 blanks, all 16738 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          5 |     14,390 |          2 |          5 |     14,397 |
+| TypeScript         |         45 |      1,312 |         38 |        254 |      1,604 |
+| HTML               |         14 |        366 |         24 |         43 |        433 |
+| CSS                |         14 |        145 |         21 |         39 |        205 |
+| JSON with Comments |          1 |         31 |          1 |          1 |         33 |
+| SCSS               |          1 |         15 |         15 |          8 |         38 |
+| Markdown           |          1 |         14 |          0 |         14 |         28 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                        | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                           |         81 |     16,273 |        101 |        364 |     16,738 |
+| . (Files)                                                                                                                   |          8 |     14,475 |          9 |         31 |     14,515 |
+| src                                                                                                                         |         73 |      1,798 |         92 |        333 |      2,223 |
+| src (Files)                                                                                                                 |          5 |         68 |         19 |         28 |        115 |
+| src\app                                                                                                                     |         68 |      1,730 |         73 |        305 |      2,108 |
+| src\app (Files)                                                                                                             |          7 |        144 |          2 |         21 |        167 |
+| src\app\Services                                                                                                            |          8 |        364 |         28 |         61 |        453 |
+| src\app\components                                                                                                          |         24 |        409 |         16 |         85 |        510 |
+| src\app\components\add-user-to-group                                                                                        |          4 |         91 |          0 |         14 |        105 |
+| src\app\components\footer                                                                                                   |          4 |         92 |          1 |         20 |        113 |
+| src\app\components\mat-card-group                                                                                           |          4 |         45 |          0 |         12 |         57 |
+| src\app\components\matcard                                                                                                  |          4 |         53 |          0 |         12 |         65 |
+| src\app\components\matselect                                                                                                |          4 |         36 |          0 |         11 |         47 |
+| src\app\components\nav                                                                                                      |          4 |         92 |         15 |         16 |        123 |
+| src\app\models                                                                                                              |          5 |         39 |          0 |          5 |         44 |
+| src\app\pages                                                                                                               |         24 |        774 |         27 |        133 |        934 |
+| src\app\pages\add-event                                                                                                     |          4 |        227 |          6 |         34 |        267 |
+| src\app\pages\add-group                                                                                                     |          4 |        152 |          6 |         25 |        183 |
+| src\app\pages\group-page                                                                                                    |          4 |         83 |          9 |         20 |        112 |
+| src\app\pages\groups-page                                                                                                   |          4 |         85 |          0 |         15 |        100 |
+| src\app\pages\home-page                                                                                                     |          4 |         85 |          0 |         15 |        100 |
+| src\app\pages\login-form                                                                                                    |          4 |        142 |          6 |         24 |        172 |
++-----------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                                    | language           | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\README.md                                                                | Markdown           |         14 |          0 |         14 |         28 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\angular.json                                                             | JSON               |        105 |          0 |          1 |        106 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\package-lock.json                                                        | JSON               |     14,205 |          0 |          1 |     14,206 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\package.json                                                             | JSON               |         50 |          0 |          1 |         51 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\server.ts                                                                | TypeScript         |         40 |          6 |         11 |         57 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\Services\AuthGuard.service.ts                                    | TypeScript         |         33 |          0 |          2 |         35 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\Services\MyRoute.service.ts                                      | TypeScript         |         27 |          4 |          7 |         38 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\Services\OnPush.service.ts                                       | TypeScript         |         21 |          0 |          3 |         24 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\Services\authobsv.service.ts                                     | TypeScript         |         63 |         14 |          7 |         84 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\Services\firebase.service.ts                                     | TypeScript         |         34 |          3 |          6 |         43 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\Services\isloading.service.ts                                    | TypeScript         |         17 |          0 |          6 |         23 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\Services\jwt.service.ts                                          | TypeScript         |         28 |          0 |          4 |         32 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\Services\main.service.ts                                         | TypeScript         |        141 |          7 |         26 |        174 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\app.component.css                                                | CSS                |          0 |          0 |          1 |          1 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\app.component.html                                               | HTML               |          9 |          0 |          2 |         11 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\app.component.spec.ts                                            | TypeScript         |         25 |          0 |          5 |         30 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\app.component.ts                                                 | TypeScript         |         37 |          0 |          5 |         42 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\app.config.server.ts                                             | TypeScript         |          9 |          0 |          3 |         12 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\app.config.ts                                                    | TypeScript         |          9 |          0 |          3 |         12 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\app.routes.ts                                                    | TypeScript         |         55 |          2 |          2 |         59 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\add-user-to-group\add-user-to-group.component.css     | CSS                |          0 |          0 |          1 |          1 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\add-user-to-group\add-user-to-group.component.html    | HTML               |         12 |          0 |          2 |         14 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\add-user-to-group\add-user-to-group.component.spec.ts | TypeScript         |         18 |          0 |          6 |         24 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\add-user-to-group\add-user-to-group.component.ts      | TypeScript         |         61 |          0 |          5 |         66 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\footer\footer.component.css                           | CSS                |         36 |          1 |          8 |         45 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\footer\footer.component.html                          | HTML               |         27 |          0 |          3 |         30 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\footer\footer.component.spec.ts                       | TypeScript         |         18 |          0 |          6 |         24 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\footer\footer.component.ts                            | TypeScript         |         11 |          0 |          3 |         14 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\mat-card-group\mat-card-group.component.css           | CSS                |          0 |          0 |          1 |          1 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\mat-card-group\mat-card-group.component.html          | HTML               |         13 |          0 |          3 |         16 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\mat-card-group\mat-card-group.component.spec.ts       | TypeScript         |         18 |          0 |          6 |         24 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\mat-card-group\mat-card-group.component.ts            | TypeScript         |         14 |          0 |          2 |         16 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\matcard\matcard.component.css                         | CSS                |          4 |          0 |          0 |          4 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\matcard\matcard.component.html                        | HTML               |         17 |          0 |          3 |         20 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\matcard\matcard.component.spec.ts                     | TypeScript         |         18 |          0 |          6 |         24 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\matcard\matcard.component.ts                          | TypeScript         |         14 |          0 |          3 |         17 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\matselect\matselect.component.css                     | CSS                |          0 |          0 |          1 |          1 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\matselect\matselect.component.html                    | HTML               |          7 |          0 |          0 |          7 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\matselect\matselect.component.spec.ts                 | TypeScript         |         18 |          0 |          6 |         24 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\matselect\matselect.component.ts                      | TypeScript         |         11 |          0 |          4 |         15 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\nav\nav.component.css                                 | CSS                |          0 |          0 |          1 |          1 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\nav\nav.component.html                                | HTML               |         31 |         13 |          2 |         46 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\nav\nav.component.spec.ts                             | TypeScript         |         18 |          0 |          6 |         24 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\components\nav\nav.component.ts                                  | TypeScript         |         43 |          2 |          7 |         52 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\models\city.ts                                                   | TypeScript         |          4 |          0 |          0 |          4 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\models\customer.ts                                               | TypeScript         |          6 |          0 |          0 |          6 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\models\event.ts                                                  | TypeScript         |         16 |          0 |          3 |         19 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\models\group.ts                                                  | TypeScript         |          9 |          0 |          1 |         10 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\models\media.ts                                                  | TypeScript         |          4 |          0 |          1 |          5 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\add-event\add-event.component.css                          | CSS                |         35 |          6 |          7 |         48 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\add-event\add-event.component.html                         | HTML               |         88 |          0 |          9 |         97 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\add-event\add-event.component.spec.ts                      | TypeScript         |         18 |          0 |          6 |         24 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\add-event\add-event.component.ts                           | TypeScript         |         86 |          0 |         12 |         98 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\add-group\add-group.component.css                          | CSS                |         35 |          6 |          7 |         48 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\add-group\add-group.component.html                         | HTML               |         42 |          0 |          3 |         45 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\add-group\add-group.component.spec.ts                      | TypeScript         |         18 |          0 |          6 |         24 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\add-group\add-group.component.ts                           | TypeScript         |         57 |          0 |          9 |         66 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\group-page\group-page.component.css                        | CSS                |          0 |          0 |          1 |          1 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\group-page\group-page.component.html                       | HTML               |         16 |          9 |          2 |         27 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\group-page\group-page.component.spec.ts                    | TypeScript         |         18 |          0 |          6 |         24 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\group-page\group-page.component.ts                         | TypeScript         |         49 |          0 |         11 |         60 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\groups-page\groups-page.component.css                      | CSS                |          0 |          0 |          1 |          1 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\groups-page\groups-page.component.html                     | HTML               |         15 |          0 |          0 |         15 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\groups-page\groups-page.component.spec.ts                  | TypeScript         |         18 |          0 |          6 |         24 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\groups-page\groups-page.component.ts                       | TypeScript         |         52 |          0 |          8 |         60 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\home-page\home-page.component.css                          | CSS                |          0 |          0 |          1 |          1 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\home-page\home-page.component.html                         | HTML               |         14 |          0 |          0 |         14 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\home-page\home-page.component.spec.ts                      | TypeScript         |         18 |          0 |          6 |         24 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\home-page\home-page.component.ts                           | TypeScript         |         53 |          0 |          8 |         61 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\login-form\login-form.component.css                        | CSS                |         33 |          6 |          7 |         46 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\login-form\login-form.component.html                       | HTML               |         34 |          0 |          1 |         35 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\login-form\login-form.component.spec.ts                    | TypeScript         |         18 |          0 |          6 |         24 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\app\pages\login-form\login-form.component.ts                         | TypeScript         |         57 |          0 |         10 |         67 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\custom-theme.scss                                                    | SCSS               |         15 |         15 |          8 |         38 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\index.html                                                           | HTML               |         41 |          2 |         13 |         56 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\main.server.ts                                                       | TypeScript         |          5 |          0 |          3 |          8 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\main.ts                                                              | TypeScript         |          5 |          0 |          2 |          7 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\src\styles.css                                                           | CSS                |          2 |          2 |          2 |          6 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\tsconfig.app.json                                                        | JSON               |         17 |          1 |          1 |         19 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\tsconfig.json                                                            | JSON with Comments |         31 |          1 |          1 |         33 |
+| c:\Users\kha12\IdeaProjects\events\Events-Frontend\tsconfig.spec.json                                                       | JSON               |         13 |          1 |          1 |         15 |
+| Total                                                                                                                       |                    |     16,273 |        101 |        364 |     16,738 |
++-----------------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

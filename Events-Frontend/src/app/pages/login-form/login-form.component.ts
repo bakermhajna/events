@@ -6,11 +6,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
-import { JwtService } from '../../Services/jwt.service';
 import { LoadingService } from '../../Services/isloading.service';
 import { AuthServiceObsv } from '../../Services/authobsv.service';
 import { Subscription } from 'rxjs';
-import { Mainservice } from '../../Services/main.service';
 
 
 @Component({
@@ -31,30 +29,21 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
   isloading = false;
   isLoggedIn: boolean = false;
-  private subscrption: Subscription
-  private jwtservice: JwtService = new JwtService;
+  private sub:Subscription
 
-  constructor(private service: Mainservice,
+  constructor(
     private router: Router,
-    public auth1: AuthServiceObsv,
-    private loadingservice: LoadingService
+    private auth1: AuthServiceObsv,
+    public loadingservice: LoadingService
   ) {
-    this.subscrption = this.auth1.getIsLoggedIn().subscribe((isLoggedIn) => {
-      this.isLoggedIn = isLoggedIn;
-      console.log('Login state updated:', isLoggedIn);
-    });
-  }
-
-  ngOnInit(): void {
+    this.sub=this.loadingservice.getstate().subscribe((isLoading)=>{
+      this.isloading=isLoading
+    })
     if (this.isLoggedIn) {
       this.router.navigate(['/home']);
     }
   }
-
-  ngOnDestroy(): void {
-    this.subscrption.unsubscribe()
-  }
-
+  
   form: FormGroup = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
@@ -65,5 +54,13 @@ export class LoginFormComponent implements OnInit, OnDestroy {
       this.loadingservice.settrue()
       this.auth1.login(this.form.value)
     }
+  }
+
+  ngOnInit(): void {
+
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe()
   }
 }

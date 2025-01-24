@@ -5,6 +5,7 @@ import { Event } from "../models/event";
 import { isPlatformBrowser } from "@angular/common";
 import { Customer } from "../models/customer";
 import { group } from "../models/group";
+import { GroupResponse } from "../pages/group-page/group-page.component";
 
 
 export interface authResponse{
@@ -19,10 +20,7 @@ export class Mainservice{
     private baseUrl = 'http://localhost:8080'; 
     private api = 'api/v1';
 
-constructor(@Inject(PLATFORM_ID) private platformId: Object ,public http :HttpClient) {
-
-  console.log("main service new instence")
-}
+constructor(@Inject(PLATFORM_ID) private platformId: Object ,public http :HttpClient) {}
 
   // GET Request
   get<T>(endpoint: string,additionalHeaders: { [key: string]: string }={}  ): Observable<HttpResponse<T>> {
@@ -65,6 +63,18 @@ constructor(@Inject(PLATFORM_ID) private platformId: Object ,public http :HttpCl
     return this.get<Event[]>(`${this.api}/event/city/${cityId}`,additionalHeaders);
   }
 
+  getUserGroups(UserId:String):Observable<HttpResponse<group[]>>{
+    return this.get<group[]>(`${this.api}/group/byuser/${UserId}`);
+  }
+
+  getGroupById(groupId:String):Observable<HttpResponse<GroupResponse>>{
+    return this.get<GroupResponse>(`${this.api}/group/${groupId}`);
+  }
+
+  addUserToGroup(groupId:String,userId:String):Observable<HttpResponse<{msg:string}>>{
+    return this.post<{msg:string}>(`${this.api}/group/adduser`,{groupId:groupId,customerId:userId});
+  }
+
   createGroup(name:String,formData?:FormData):Observable<HttpResponse<group>>{
     return this.post<{ filepath: string; }>('file/upload', formData)
       .pipe(
@@ -79,34 +89,31 @@ constructor(@Inject(PLATFORM_ID) private platformId: Object ,public http :HttpCl
       );
   }
 
-  getUserGroups(UserId:String):Observable<HttpResponse<group[]>>{
-    return this.get<group[]>(`${this.api}/group/byuser/${UserId}`);
+  addEventToGroup(groupId:String,event:any,formData:FormData):Observable<HttpResponse<{msg:string,groupID:String}>>{
+   return this
+      .post<{ filepath: string }>(  'file/upload',
+        formData).pipe(
+          switchMap((uploadResponse) => {
+            const eventPayload = {
+              ...event,
+              filePath: [uploadResponse.body?.filepath], 
+            };
+            return this.post<{msg:string,groupID:String}>(`${this.api}/group/createevent`, {GroupId:groupId,event:eventPayload});
+          })
+        )
   }
 
   addEvent(formData:FormData,eventData:any):Observable<any>{
-    let token=this.get_token()
 
-    const headers = token
-      ? new HttpHeaders().set('Authorization', `Bearer ${token}`)
-      : new HttpHeaders();
-    return this.http
-      .post<{ filepath: string }>(  'http://localhost:8080/file/upload',
-        formData, 
-        {
-          headers: headers,
-        })
-      .pipe(
-        // Step 2: Use the file URL to create the event
+    return this
+    .post<{ filepath: string }>(  'file/upload',
+      formData).pipe(
         switchMap((uploadResponse) => {
-          console.log(uploadResponse)
           const eventPayload = {
             ...eventData,
-            filePath: [uploadResponse.filepath], 
+            filePath: [uploadResponse.body?.filepath], 
           };
-          
-          return this.http.post(this.baseUrl+'/event/addevent', eventPayload,{
-            headers: headers,
-          });
+          return this.post<{msg:string,groupID:String}>(`${this.api}/event/addevent`, eventPayload);
         })
       )
   }
