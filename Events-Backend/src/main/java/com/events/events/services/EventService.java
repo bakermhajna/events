@@ -41,6 +41,9 @@ public class EventService {
     public Set<EventDto> getEventsByCity(Long cityid){
         cityService.findByID(cityid);
         Set<Event> events= eventRepository.findByCity_Id(cityid);
+        events = events.stream()
+                .filter(event -> event.getGroup() == null)
+                .collect(Collectors.toSet());
         return events.stream()
                 .map(EventMapper::mapToEventDto)
                 .collect(Collectors.toSet());
