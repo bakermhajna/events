@@ -38,8 +38,7 @@ interface ViewState {
             }
         }
     </div>
-    <button (click)="logout()">log out</button>
-</div>
+  </div>
   `,
   styles:``
 })
@@ -85,10 +84,6 @@ export class HomePageComponent implements OnInit {
         status: 'loading' as const
       })
     );
-  }
-    
-  logout() {
-    this.auth1.logout();
   }
 
   private loadfromLocalStorage(): Event[] {

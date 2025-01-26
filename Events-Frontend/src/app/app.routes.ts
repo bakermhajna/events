@@ -7,6 +7,10 @@ import { AddGroupComponent } from './pages/add-group/add-group.component';
 import { AuthGuard } from './Services/AuthGuard.service';
 import { GroupPageComponent } from './pages/group-page/group-page.component';
 import { AddUserToGroupComponent } from './components/add-user-to-group/add-user-to-group.component';
+import { TestComponent } from './pages/test/test.component';
+import { AccountComponent } from './pages/account/account.component';
+import { MyEventsComponent } from './pages/my-events/my-events.component';
+import { MyInvitationsComponent } from './pages/my-invitations/my-invitations.component';
 
 export const routes: Routes = 
 [
@@ -49,6 +53,25 @@ export const routes: Routes =
         path: 'adduser/:id', 
         component: AddUserToGroupComponent,
         canActivate: [AuthGuard],
+    },
+    { 
+        path: 'test', 
+        component: TestComponent
+    },
+    { 
+        path: 'account', 
+        component: AccountComponent,
+        canActivate: [AuthGuard]
+    },
+    { 
+        path: 'myevents', 
+        component: MyEventsComponent,
+        canActivate: [AuthGuard]
+    },
+    { 
+        path: 'invitations', 
+        component: MyInvitationsComponent,
+        canActivate: [AuthGuard]
     },
     // Add a catch-all route for undefined routes
     { 

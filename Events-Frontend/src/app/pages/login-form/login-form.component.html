@@ -4,27 +4,27 @@
   }@else {
   <mat-card class="login-card">
     <mat-card-header>
-      <mat-card-title>Login</mat-card-title>
+      <mat-card-title>تسجيل الدخول</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="submit()">
         <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Email</mat-label>
-          <input matInput type="email" formControlName="email" placeholder="Enter your email" required />
+          <mat-label>البريد الالكتروني</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="ادخل البريد الالكتروني" required />
           @if (form.get('email')?.invalid && form.get('email')?.touched) {
-          <mat-error>Please enter a valid email.</mat-error>
+          <mat-error>الرجاء إدخال بريد إلكتروني صالح.</mat-error>
           }
         </mat-form-field>
         <mat-form-field appearance="fill" class="form-field">
-          <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" placeholder="Enter your password" required />
+          <mat-label>كلمة المرور</mat-label>
+          <input matInput type="password" formControlName="password" placeholder="ادخل كلمة المرور" required />
           @if (form.get('password')?.invalid && form.get('password')?.touched) {
-          <mat-error>Password is required.</mat-error>
+          <mat-error>الرجاء إدخال كلمة المرور.</mat-error>
           }
         </mat-form-field>
         <div class="actions">
           <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
-            Login
+            تسجيل الدخول
           </button>
         </div>
       </form>

@@ -6,6 +6,7 @@ import { isPlatformBrowser } from "@angular/common";
 import { Customer } from "../models/customer";
 import { group } from "../models/group";
 import { GroupResponse } from "../pages/group-page/group-page.component";
+import { Invitation } from "../models/Invitation";
 
 
 export interface authResponse{
@@ -71,8 +72,16 @@ constructor(@Inject(PLATFORM_ID) private platformId: Object ,public http :HttpCl
     return this.get<GroupResponse>(`${this.api}/group/${groupId}`);
   }
 
+  getInvitations():Observable<HttpResponse<Invitation[]>>{
+    return this.get<Invitation[]>(`${this.api}/invitation`);
+  }
+
   addUserToGroup(groupId:String,userId:String):Observable<HttpResponse<{msg:string}>>{
     return this.post<{msg:string}>(`${this.api}/group/adduser`,{groupId:groupId,customerId:userId});
+  }
+
+  getEventsByUser():Observable<HttpResponse<Event[]>>{
+    return this.get<Event[]>(`${this.api}/event`);
   }
 
   createGroup(name:String,formData?:FormData):Observable<HttpResponse<group>>{

@@ -1,10 +1,12 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { MatselectComponent } from "../matselect/matselect.component";
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { Router ,NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { MyRouteService } from '../../Services/MyRoute.service';
+import { AuthServiceObsv } from '../../Services/authobsv.service';
+import { pipe, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-nav',
@@ -13,11 +15,21 @@ import { MyRouteService } from '../../Services/MyRoute.service';
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })
-export class NavComponent implements OnInit{
+export class NavComponent implements OnInit,OnDestroy{
   currentRoute: string = ''; // Store the current route
   groupId: string|null=null;
-  
-  constructor(private router: Router,private myRouteService: MyRouteService) {}
+  buttonShow:boolean=false;
+  sub:Subscription;
+
+  constructor(private router: Router,private myRouteService: MyRouteService,private authService: AuthServiceObsv) {
+    this.sub=this.authService.isLogedin$.subscribe((isLogedin:boolean)=>{
+      this.buttonShow=isLogedin;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
   
   ngOnInit(): void {
     // Subscribe to route changes using MyRouteService

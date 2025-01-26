@@ -30,7 +30,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
   isloading = false;
   isLoggedIn: boolean = false;
   private sub:Subscription
-
+  private authsub:Subscription
   constructor(
     private router: Router,
     private auth1: AuthServiceObsv,
@@ -39,19 +39,25 @@ export class LoginFormComponent implements OnInit, OnDestroy {
     this.sub=this.loadingservice.getstate().subscribe((isLoading)=>{
       this.isloading=isLoading
     })
-    if (this.isLoggedIn) {
-      this.router.navigate(['/home']);
-    }
+    this.authsub=this.auth1.isLogedin$.subscribe((isLogedin:boolean)=>{
+      this.isLoggedIn=isLogedin;
+      if (this.isLoggedIn) {
+        this.router.navigate(['/home']);
+      }
+    })
+    
   }
   
   form: FormGroup = new FormGroup({
     email: new FormControl(''),
     password: new FormControl(''),
   });
+  
 
   submit() {
     if (this.form.valid) {
       this.loadingservice.settrue()
+      console.log(this.form.value)
       this.auth1.login(this.form.value)
     }
   }
@@ -62,5 +68,6 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub.unsubscribe()
+    this.authsub.unsubscribe()
   }
 }

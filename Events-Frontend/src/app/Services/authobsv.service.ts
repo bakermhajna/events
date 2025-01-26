@@ -5,6 +5,7 @@ import { LoadingService } from './isloading.service';
 import { isPlatformBrowser } from '@angular/common';
 import { Mainservice } from './main.service';
 import { JwtService } from './jwt.service';
+import { Customer } from '../models/customer';
 @Injectable({
     providedIn: 'root',
 })
@@ -66,5 +67,13 @@ export class AuthServiceObsv {
             console.warn('Not running in a browser environment!');
         }
         return token
+    }
+
+    getUser():Customer{
+        return JSON.parse(localStorage.getItem('user') || '{}');
+    }
+
+    getUserId():string{
+        return this.getUser().id;
     }
 }

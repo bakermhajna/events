@@ -1,12 +1,12 @@
    <div class="form-container">
     <mat-card class="event-card">
       <mat-card-header>
-        <mat-card-title>Create Event</mat-card-title>
+        <mat-card-title>إنشاء فعالية</mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <form (ngSubmit)="onSubmit()" #eventForm="ngForm" class="event-form">
           <mat-form-field appearance="fill" class="form-field">
-            <mat-label>Event Name</mat-label>
+            <mat-label>اسم الفعالية</mat-label>
             <input
               matInput
               type="text"
@@ -14,24 +14,24 @@
               [(ngModel)]="eventData.name"
               name="name"
               required
-              placeholder="Enter event name"
+              placeholder="ادخل اسم الفعالية"
             />
           </mat-form-field>
   
           <mat-form-field appearance="fill" class="form-field">
-            <mat-label>Description</mat-label>
+            <mat-label>الوصف</mat-label>
             <textarea
               matInput
               id="description"
               [(ngModel)]="eventData.description"
               name="description"
               required
-              placeholder="Enter event description"
+              placeholder="ادخل الوصف"
             ></textarea>
           </mat-form-field>
   
           <mat-form-field appearance="fill" class="form-field">
-            <mat-label>Date</mat-label>
+            <mat-label>التاريخ</mat-label>
             <input
               matInput
               type="date"
@@ -43,7 +43,7 @@
           </mat-form-field>
   
           <mat-form-field appearance="fill" class="form-field">
-            <mat-label>Location</mat-label>
+            <mat-label>الموقع</mat-label>
             <input
               matInput
               type="text"
@@ -51,12 +51,12 @@
               [(ngModel)]="eventData.location"
               name="location"
               required
-              placeholder="Enter event location"
+              placeholder="ادخل الموقع"
             />
           </mat-form-field>
   
           <mat-form-field appearance="fill" class="form-field">
-            <mat-label>Capacity</mat-label>
+            <mat-label>الحجم</mat-label>
             <input
               matInput
               type="text"
@@ -64,12 +64,12 @@
               [(ngModel)]="eventData.capacity"
               name="capacity"
               required
-              placeholder="Enter event capacity"
+              placeholder="ادخل الحجم"
             />
           </mat-form-field>
   
           <div class="form-group">
-            <label for="file" class="file-label">Event Image:</label>
+            <label for="file" class="file-label">صورة الفعالية:</label>
             <input
               type="file"
               id="file"
@@ -85,7 +85,7 @@
               type="submit"
               [disabled]="!selectedFile || !eventForm.valid"
             >
-              Submit
+              إنشاء
             </button>
           </div>
         </form>
