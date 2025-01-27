@@ -1,26 +1,68 @@
-# EventFront
+# Events Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+A modern web application built with Angular 17 for managing and organizing events and groups. This application provides a seamless experience for creating, managing, and participating in events.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Event Management**
+  - Create and manage events
+  - Upload event images
+  - Invite users to events
+  - View event details and participants
 
-## Code scaffolding
+- **Group Management**
+  - Create and join groups
+  - Add members to groups
+  - Organize events within groups
+  - Group-specific event management
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **User Features**
+  - User authentication
+  - Profile management
+  - Search for users
+  - Event invitations
+  - Real-time updates
 
-## Build
+## Technology Stack
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Frontend Framework**: Angular 17
+- **UI Components**: Angular Material
+- **Styling**: Bootstrap 5
+- **State Management**: RxJS
+- **Server-Side Rendering**: Angular Universal
+- **Authentication**: JWT
 
-## Running unit tests
+## Getting Started
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Prerequisites
 
-## Running end-to-end tests
+- Node.js (v18 or higher)
+- npm (comes with Node.js)
+- Angular CLI (v17.3.8 or higher)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Installation
+
+1. Clone the repository:
+git clone https://github.com/bakermhajna/events.git
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Start the development server:
+```bash
+ng serve
+```
+
+4. Navigate to `http://localhost:4200/` in your browser.
+
+## Project Structure
+
+- `/src/app/components` - Reusable UI components
+- `/src/app/pages` - Page components
+- `/src/app/services` - Application services
+- `/src/app/models` - Data models and interfaces
 
 ## Further help
 
