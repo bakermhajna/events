@@ -20,7 +20,7 @@ public class InvationMapper {
         return InvationDto.builder()
                 .id(invitation.getId())
                 .eventDto(EventMapper.mapToEventDto(invitation.getEvent()))
-//                .customerDto(CustomerMapper.mapToCustomerDto(invitation.getInvitedUser()))
+                .customerDto(CustomerMapper.mapToCustomerDto(invitation.getInvitedUser()))
                 .build();
     }
 }

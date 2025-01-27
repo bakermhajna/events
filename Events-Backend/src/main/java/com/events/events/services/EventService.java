@@ -2,6 +2,7 @@ package com.events.events.services;
 
 
 import com.events.events.exception.EventNotFoundException;
+import com.events.events.exception.customerNotFoundException;
 import com.events.events.mappers.EventMapper;
 import com.events.events.models.City;
 import com.events.events.models.Customer;
@@ -36,6 +37,13 @@ public class EventService {
     public EventDto getEventByIdForCustomer(Long id, Customer customer){
         Event event= eventRepository.findByIdAndCustomer(id,customer).orElseThrow(()->new EventNotFoundException(id));
         return EventMapper.mapToEventDto(event);
+    }
+
+    public Set<EventDto> getEventsByCustomer( Customer customer){
+        Set<Event> events= eventRepository.findByCustomer(customer).orElseThrow( () -> new customerNotFoundException(customer.getId()));
+        return events.stream()
+                .map(EventMapper::mapToEventDto)
+                .collect(Collectors.toSet());
     }
 
     public Set<EventDto> getEventsByCity(Long cityid){

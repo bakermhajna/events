@@ -38,4 +38,10 @@ public class InvitationController {
         return ResponseEntity.ok(invationDtos);
     }
 
+    @GetMapping("event/{eventid}")
+    public ResponseEntity<Set<InvationDto>> getinvationbyevent(@PathVariable Long eventid){
+        Customer currentCustomer =ContextHolder.getCustomerFromContext();
+        Set<InvationDto> invationDtos=invitationService.getInvitedCustomersByEvent(eventid);
+        return ResponseEntity.ok(invationDtos);
+    }
 }

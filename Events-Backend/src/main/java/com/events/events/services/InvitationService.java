@@ -46,7 +46,13 @@ public class InvitationService {
     public Set<InvationDto> getInvations(String id) {
         Set<Invitation> invitations = invitationRepository.findByInvitedUser_Id(id).get();
         return invitations.stream()
-                .map(InvationMapper::mapToInvitationDto).collect(Collectors.toSet());
+                .map(InvationMapper::mapToInvitationDto)
+                .peek(invationDto -> invationDto.setCustomerDto(null)).collect(Collectors.toSet());
 
+    }
+
+    public Set<InvationDto> getInvitedCustomersByEvent(Long eventid){
+        Set<Invitation> inv=invitationRepository.findByevent_id(eventid).orElseThrow(()-> new RuntimeException("no event id"));
+        return inv.stream().map(InvationMapper::mapToInvitationDto).collect(Collectors.toSet());
     }
 }

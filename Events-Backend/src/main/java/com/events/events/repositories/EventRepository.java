@@ -17,4 +17,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Set<Event> findByCity_Id(Long city);
 
     Optional<Set<Event>> findByGroup_id(Long id);
+
+    Optional<Set<Event>> findByCustomer(Customer customer);
 }

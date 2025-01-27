@@ -10,4 +10,5 @@ import java.util.Set;
 @Repository
 public interface InvitationRepository extends JpaRepository<Invitation, Long> {
     Optional<Set<Invitation>> findByInvitedUser_Id(String customerid);
+    Optional<Set<Invitation>> findByevent_id(Long eventid);
 }

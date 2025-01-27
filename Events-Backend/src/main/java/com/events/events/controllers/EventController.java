@@ -39,4 +39,10 @@ public class EventController {
         Customer currentCustomer = ContextHolder.getCustomerFromContext();
         return ResponseEntity.ok(eventService.getEventsByCity(cityid));
     }
+
+    @GetMapping("")
+    public ResponseEntity<Set<EventDto>> getEventsBycustomerId(){
+        Customer currentCustomer = ContextHolder.getCustomerFromContext();
+        return ResponseEntity.ok(eventService.getEventsByCustomer(currentCustomer));
+    }
 }
