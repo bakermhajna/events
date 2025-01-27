@@ -84,6 +84,22 @@ constructor(@Inject(PLATFORM_ID) private platformId: Object ,public http :HttpCl
     return this.get<Event[]>(`${this.api}/event`);
   }
 
+  getEventInvitedUsers(eventId:String):Observable<HttpResponse<{customerDto:Customer}[]>>{
+    return this.get<{customerDto:Customer}[]>(`${this.api}/invitation/event/${eventId}`);
+  }
+
+  getEventById(eventId:String):Observable<HttpResponse<Event>>{
+    return this.get<Event>(`${this.api}/event/${eventId}`);
+  }
+
+  searchUsers(searchTerm: string):Observable<HttpResponse<Customer[]>> {
+    return this.get<Customer[]>(`${this.api}/users/${searchTerm}`);
+  }
+
+  inviteUserToEvent(eventId:String,userId:String):Observable<HttpResponse<{msg:string,invationSet:Customer[]}>>{
+    return this.post<{msg:string,invationSet:Customer[]}>(`${this.api}/invitation/invite`,{invitedCustomers:[userId],eventId:eventId});
+  }
+
   createGroup(name:String,formData?:FormData):Observable<HttpResponse<group>>{
     return this.post<{ filepath: string; }>('file/upload', formData)
       .pipe(
@@ -168,4 +184,5 @@ constructor(@Inject(PLATFORM_ID) private platformId: Object ,public http :HttpCl
     return token ?? null
   }
     
+
 }

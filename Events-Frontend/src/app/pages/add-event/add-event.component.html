@@ -32,14 +32,17 @@
   
           <mat-form-field appearance="fill" class="form-field">
             <mat-label>التاريخ</mat-label>
-            <input
+            <input 
               matInput
-              type="date"
+              [matDatepicker]="picker"
               id="date"
               [(ngModel)]="eventData.date"
               name="date"
               required
+              placeholder="اختر التاريخ"
             />
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
   
           <mat-form-field appearance="fill" class="form-field">

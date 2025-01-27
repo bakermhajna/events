@@ -6,11 +6,11 @@ import { GroupsPageComponent } from './pages/groups-page/groups-page.component';
 import { AddGroupComponent } from './pages/add-group/add-group.component';
 import { AuthGuard } from './Services/AuthGuard.service';
 import { GroupPageComponent } from './pages/group-page/group-page.component';
-import { AddUserToGroupComponent } from './components/add-user-to-group/add-user-to-group.component';
-import { TestComponent } from './pages/test/test.component';
+import { AddUserToGroupComponent } from './pages/add-user-to-group/add-user-to-group.component';
 import { AccountComponent } from './pages/account/account.component';
 import { MyEventsComponent } from './pages/my-events/my-events.component';
 import { MyInvitationsComponent } from './pages/my-invitations/my-invitations.component';
+import { MyEventComponent } from './pages/my-event/my-event.component';
 
 export const routes: Routes = 
 [
@@ -50,13 +50,14 @@ export const routes: Routes =
         canActivate: [AuthGuard]
     },
     { 
+        path: 'myevent/:id', 
+        component: MyEventComponent,
+        canActivate: [AuthGuard]
+    },
+    { 
         path: 'adduser/:id', 
         component: AddUserToGroupComponent,
         canActivate: [AuthGuard],
-    },
-    { 
-        path: 'test', 
-        component: TestComponent
     },
     { 
         path: 'account', 

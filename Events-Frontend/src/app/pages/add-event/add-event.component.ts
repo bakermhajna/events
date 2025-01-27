@@ -9,11 +9,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthServiceObsv } from '../../Services/authobsv.service';
 import { Subscription } from 'rxjs';
 import { LoadingService } from '../../Services/isloading.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-add-event',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, ReactiveFormsModule],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule],
   templateUrl: './add-event.component.html',
   styleUrl: './add-event.component.css'
 })

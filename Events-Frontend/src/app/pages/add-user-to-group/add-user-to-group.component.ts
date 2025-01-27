@@ -9,6 +9,7 @@ import { Mainservice } from '../../Services/main.service';
 import { RouterModule } from '@angular/router';
 import { LoadingService } from '../../Services/isloading.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Customer } from '../../models/customer';
 
 @Component({
   selector: 'app-add-user-to-group',
@@ -21,8 +22,27 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     RouterModule,
     MatProgressSpinnerModule
   ],
-  templateUrl: './add-user-to-group.component.html',
-  styleUrl: './add-user-to-group.component.css'
+  template:`
+  <div class="mb-3">
+  <input type="text" class="form-control" [(ngModel)]="searchTerm" 
+         (ngModelChange)="searchUsers()" 
+         placeholder="البحث عن مستخدمين...">
+</div>
+
+@if (searchResults.length > 0) {
+  <div class="list-group mb-4">
+    @for (user of searchResults; track user.id) {
+      <div class="list-group-item d-flex justify-content-between align-items-center">
+        {{user.name}}
+        <button class="btn btn-sm btn-primary" (click)="addUserToGroup(user)">
+          إضافة
+        </button>
+      </div>
+    }
+  </div>
+}
+  `,
+  styles:[``]
 })
 export class AddUserToGroupComponent implements OnDestroy {
   userId: string = '';
@@ -30,6 +50,8 @@ export class AddUserToGroupComponent implements OnDestroy {
   private routeSub: Subscription;
   public IsLoading: boolean = false;
   private loadingsub:Subscription
+  searchTerm: string = '';
+  searchResults: Customer[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -61,5 +83,26 @@ export class AddUserToGroupComponent implements OnDestroy {
         this.IsLoading = false;
       }
     });
+  }
+
+  searchUsers() {
+    if (this.searchTerm.length < 2) {
+      this.searchResults = [];
+      return;
+    }
+
+    this.service.searchUsers(this.searchTerm).subscribe({
+      next: (response) => {
+        this.searchResults = response.body || [];
+      },
+      error: (err) => {
+        console.error('Error searching users:', err);
+      }
+    });
+  }
+
+  addUserToGroup(user: Customer) {
+    this.userId = user.id;
+    this.onSubmit();
   }
 }
