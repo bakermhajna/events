@@ -1,0 +1,10 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+  }
+  
+  .content {
+    flex-grow: 1; /* Makes this section take the remaining space */
+    overflow-y: auto; /* Enables scrolling only for the main content */
+  }

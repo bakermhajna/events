@@ -1,0 +1,4 @@
+mat-card {
+    border-radius: 8px; /* Adjust radius as needed */
+    overflow: hidden; /* Ensures content follows rounded edges */
+  }

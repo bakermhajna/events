@@ -1,0 +1,45 @@
+<div class="login-container">
+  @if (isloading) {
+  <mat-spinner></mat-spinner>
+  }@else {
+    <div class="flex items-center justify-center px-5 mt-56 ">
+      <div class="w-full max-w-md  rounded-2xl shadow-lg p-6">
+        <h2 class="text-2xl font-semibold text-center text-gray-700">تسجيل الدخول</h2>
+    
+        <form [formGroup]="form" (ngSubmit)="submit()" class="mt-6">
+          <!-- Email Field -->
+          <mat-form-field appearance="fill" class="w-full">
+            <mat-label>البريد الالكتروني</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="ادخل البريد الالكتروني" required />
+            @if(form.get('email')?.invalid && form.get('email')?.touched){
+              <mat-error >
+                الرجاء إدخال بريد إلكتروني صالح.
+              </mat-error>
+
+            }
+          </mat-form-field>
+    
+          <mat-form-field appearance="fill" class="w-full mt-4">
+            <mat-label>كلمة المرور</mat-label>
+            <input matInput type="password" formControlName="password" placeholder="ادخل كلمة المرور" required />
+            @if(form.get('password')?.invalid && form.get('password')?.touched){
+              <mat-error >
+                الرجاء إدخال كلمة المرور.
+              </mat-error>
+            }
+          </mat-form-field>
+    
+          <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid" class="w-full mt-6">
+            تسجيل الدخول
+          </button>
+        </form>
+    
+        <p class="mt-4 text-sm text-center text-gray-600">
+          ليس لديك حساب؟ 
+          <a href="#" class="text-blue-500 hover:underline">إنشاء حساب</a>
+        </p>
+      </div>
+    </div>
+    
+  }
+</div>

@@ -1,0 +1,16 @@
+<div class="col">
+    <mat-card onclick="" class="shadow-sm ">
+      <img [src]="group().filePath.at(0)" alt="">
+      <mat-card-content style="margin: 2%;">
+        <p>{{group().name}}</p>
+      </mat-card-content>
+      @if(group().ifAdmin){
+        <mat-card-content style="margin: 2%;">
+          <p>admin</p>
+        </mat-card-content>
+      }
+
+    </mat-card>
+</div>
+
+  

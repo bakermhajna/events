@@ -1,13 +1,9 @@
 package com.events.events.utils;
 
-import com.events.events.dto.CustomerDto;
 import com.events.events.dto.EventDto;
 import com.events.events.dto.GroupDataDto;
-import com.events.events.mappers.CustomerMapper;
 import com.events.events.models.City;
 import com.events.events.models.Customer;
-import com.events.events.models.GroupData;
-import com.events.events.models.Media;
 import com.events.events.models.auth.registerDetails;
 import com.events.events.repositories.CityRepository;
 import com.events.events.repositories.CustomerRepository;
@@ -22,13 +18,12 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class DataInitializer {
 
     @Autowired
-    private  CityRepository cityRepository;
+    private CityRepository cityRepository;
 
     @Autowired
     private CustomerRepository customerRepository;

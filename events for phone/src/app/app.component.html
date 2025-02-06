@@ -1,0 +1,15 @@
+<div class="app-container">
+     <div class="">
+          <app-header [hidePlus]="hideplus"></app-header>
+     </div>
+     <div class="content">
+          <main class="mb-20 mt-24  justify-center items-center">
+     
+               <router-outlet></router-outlet>
+          </main>
+     
+     </div>
+     @if(isLoggedIn){
+     <app-footer-tw></app-footer-tw>
+     }
+</div>

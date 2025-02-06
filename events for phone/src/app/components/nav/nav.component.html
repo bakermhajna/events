@@ -1,0 +1,48 @@
+<header>
+    <div class="collapse" style="background: #0f071f;" id="navbarHeader">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-md-7 py-4">
+            <app-matselect></app-matselect>
+            <button (click)="navigate()" mat-fab aria-label="Example icon button with a delete icon">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          @if(this.groupId){
+            <div class="col-sm-8 col-md-7 py-4">
+              <button (click)="navigateadduser()" mat-fab aria-label="Example icon button with a delete icon">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+    <div class="navbar navbar-dark shadow-sm" style="background: #0f071f;">
+      <div class="container">
+        <a href="#" class="navbar-brand d-flex align-items-center m-1">
+          <strong>الاعراس</strong>
+        </a>
+        @if(buttonShow){
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="تبديل التنقل">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        }
+      </div>
+    </div>
+</header>
+  
+
+<!--   
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">مثال الألبوم</h1>
+          <p class="lead text-muted">وصف قصير حول الألبوم أدناه (محتوياته ، ومنشؤه ، وما إلى ذلك). اجعله قصير ولطيف، ولكن ليست قصير جدًا حتى لا يتخطى الناس هذا الألبوم تمامًا.</p>
+          <p>
+            <a href="#" class="btn btn-primary mx-1">الدعوة الرئيسية للعمل</a>
+            <a href="#" class="btn btn-secondary mx-1">عمل ثانوي</a>
+          </p>
+        </div>
+      </div>
+    </section> -->
