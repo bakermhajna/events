@@ -1,90 +1,93 @@
 import { Component, OnInit } from '@angular/core';
 import { Mainservice } from '../../Services/main.service';
-import { HttpResponse } from '@angular/common/http';
 import { AuthServiceObsv } from '../../Services/authobsv.service';
-import { catchError, startWith } from 'rxjs/operators';
-import { share, map } from 'rxjs/operators';
+import { catchError, map, share, startWith, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { tap } from 'rxjs';
-import { Event as CustomEvent, Event } from '../../models/event';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatcardComponent } from "../../components/matcard/matcard.component";
+import { Event } from '../../models/event';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { MatcardComponent } from '../../components/matcard/matcard.component';
 
 interface ViewState {
   status: 'loading' | 'error' | 'data';
   error?: string;
-  data?: CustomEvent[];
+  data?: Event[];
 }
 
 @Component({
   selector: 'app-my-events',
   standalone: true,
-  imports: [MatProgressSpinnerModule, MatcardComponent, AsyncPipe, RouterLink],
-  template: `
 
-  <div class="album py-5 bg-light">
-    <div class="container">
+  imports: [MatcardComponent, AsyncPipe, RouterLink],
+  template: `
+    <div class=" min-h-screen py-5">
+      <div class="mx-auto px-4">
         @if (viewState$ | async; as state) {
-            @switch (state.status) {
-                @case ('loading') {
-                    <mat-spinner></mat-spinner>
-                }
-                @case ('error') {
-                    <div class="error">{{state.error}}</div>
-                }
-                @case ('data') {
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                        @for(event of state.data; track event.id) {
-                          <div [routerLink]="['/myevent', event.id]" style="cursor: pointer">
-                            <app-matcard [event]="event"></app-matcard>
-                          </div>
-                        }
-                    </div>
-                }
+          @switch (state.status) {
+            @case ('loading') {
+              <!-- Simple Tailwind spinner -->
+              <div class="flex items-center justify-center py-10">
+                <div class="h-8 w-8 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+              </div>
             }
+            @case ('error') {
+              <div class="text-red-500 font-bold">
+                {{ state.error }}
+              </div>
+            }
+            @case ('data') {
+              <!-- Responsive grid in Tailwind -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                @for(event of state.data; track event.id) {
+                  @if(!event.group){
+                    <div
+                    class="cursor-pointer"
+                    [routerLink]="['/myevent', event.id]"
+                  >
+                    <app-matcard [event]="event"></app-matcard>
+                  </div>
+
+                  }
+                }
+              </div>
+            }
+          }
         }
+      </div>
     </div>
-  </div>
   `,
   styles: [``]
 })
 export class MyEventsComponent implements OnInit {
-
   viewState$!: Observable<ViewState>;
   events: Event[] = [];
-
 
   constructor(
     private service: Mainservice,
     public auth1: AuthServiceObsv
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
+    // Call backend to get events for the current user
     const response$ = this.service.getEventsByUser().pipe(
       map(response => response.body || []),
-      tap(data => {
-        this.events = data;
-      }),
+      tap(data => (this.events = data)),
       share()
     );
 
+    // Map the data stream into a ViewState object
     this.viewState$ = response$.pipe(
       map(data => ({
         status: 'data' as const,
         data
       })),
-      catchError(error => {
-        return of({
+      catchError(error =>
+        of({
           status: 'error' as const,
           error: this.getErrorMessage(error)
-        });
-      }),
-      startWith({
-        status: 'loading' as const
-      })
+        })
+      ),
+      startWith({ status: 'loading' as const })
     );
   }
 

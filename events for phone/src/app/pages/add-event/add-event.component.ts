@@ -1,147 +1,154 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Mainservice } from '../../Services/main.service';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { Subscription } from 'rxjs';
 import { LoadingService } from '../../Services/isloading.service';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+
 @Component({
   selector: 'app-add-event',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule, ReactiveFormsModule, MatDatepickerModule, MatNativeDateModule],
-  template:`
-     <div class="form-container">
-    <mat-card class="event-card">
-      <mat-card-header>
-        <mat-card-title>إنشاء فعالية</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <form (ngSubmit)="onSubmit()" #eventForm="ngForm" class="event-form">
-          <mat-form-field appearance="fill" class="form-field">
-            <mat-label>اسم الفعالية</mat-label>
+  // We only keep FormsModule and ReactiveFormsModule for form handling. 
+  // No Angular Material modules here.
+  imports: [FormsModule, ReactiveFormsModule],
+  // Remove styleUrl if you’re not using an external stylesheet. Otherwise, keep it for Tailwind or custom CSS.
+  styleUrls: ['./add-event.component.css'],
+  template: `
+    <div class="max-w-xl mx-auto p-4">
+      <div class="bg-white shadow-md rounded-md p-4">
+        <h2 class="text-xl font-semibold mb-4">إنشاء فعالية</h2>
+        <form (ngSubmit)="onSubmit()" #eventForm="ngForm" class="space-y-4">
+          
+          <!-- Event Name -->
+          <div>
+            <label class="block mb-1 text-gray-700 font-medium" for="name"
+              >اسم الفعالية</label
+            >
             <input
-              matInput
               type="text"
               id="name"
-              [(ngModel)]="eventData.name"
               name="name"
               required
+              [(ngModel)]="eventData.name"
               placeholder="ادخل اسم الفعالية"
+              class="border border-gray-300 p-2 w-full rounded"
             />
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill" class="form-field">
-            <mat-label>الوصف</mat-label>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label class="block mb-1 text-gray-700 font-medium" for="description"
+              >الوصف</label
+            >
             <textarea
-              matInput
               id="description"
-              [(ngModel)]="eventData.description"
               name="description"
               required
+              [(ngModel)]="eventData.description"
               placeholder="ادخل الوصف"
+              class="border border-gray-300 p-2 w-full rounded"
+              rows="3"
             ></textarea>
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill" class="form-field">
-            <mat-label>التاريخ</mat-label>
-            <input 
-              matInput
-              [matDatepicker]="picker"
+          </div>
+
+          <!-- Date -->
+          <div>
+            <label class="block mb-1 text-gray-700 font-medium" for="date"
+              >التاريخ</label
+            >
+            <input
+              type="date"
               id="date"
-              [(ngModel)]="eventData.date"
               name="date"
               required
+              [(ngModel)]="eventData.date"
               placeholder="اختر التاريخ"
+              class="border border-gray-300 p-2 w-full rounded"
             />
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill" class="form-field">
-            <mat-label>الموقع</mat-label>
+          </div>
+
+          <!-- Location -->
+          <div>
+            <label class="block mb-1 text-gray-700 font-medium" for="location"
+              >الموقع</label
+            >
             <input
-              matInput
               type="text"
               id="location"
-              [(ngModel)]="eventData.location"
               name="location"
               required
+              [(ngModel)]="eventData.location"
               placeholder="ادخل الموقع"
+              class="border border-gray-300 p-2 w-full rounded"
             />
-          </mat-form-field>
-  
-          <mat-form-field appearance="fill" class="form-field">
-            <mat-label>الحجم</mat-label>
+          </div>
+
+          <!-- Capacity -->
+          <div>
+            <label class="block mb-1 text-gray-700 font-medium" for="capacity"
+              >الحجم</label
+            >
             <input
-              matInput
-              type="text"
+              type="number"
               id="capacity"
-              [(ngModel)]="eventData.capacity"
               name="capacity"
               required
+              [(ngModel)]="eventData.capacity"
               placeholder="ادخل الحجم"
+              class="border border-gray-300 p-2 w-full rounded"
             />
-          </mat-form-field>
-  
-          <div class="form-group">
-            <label for="file" class="file-label">صورة الفعالية:</label>
-            <div class="image-upload-buttons">
-              <button 
-                type="button" 
-                mat-raised-button 
+          </div>
+
+          <!-- File selection and camera -->
+          <div>
+            <label class="block mb-1 text-gray-700 font-medium">صورة الفعالية:</label>
+            <div class="flex items-center gap-2">
+              <button
+                type="button"
                 (click)="takepic($event)"
+                class="px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
               >
                 التقاط صورة
               </button>
               <input
                 type="file"
-                id="file"
-                (change)="onFileSelected($event)"
                 accept="image/*"
                 #fileInput
-                style="display: none"
+                style="display: none;"
+                (change)="onFileSelected($event)"
               />
-              <button 
-                type="button" 
-                mat-raised-button 
+              <button
+                type="button"
                 (click)="fileInput.click()"
+                class="px-3 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
               >
                 اختيار صورة
               </button>
             </div>
-          </div>
-          @if(selectedFile){
-              <div>
-                {{selectedFile.name}}
+            <!-- Preview selected file's name -->
+            @if (selectedFile) {
+              <div class="text-sm text-gray-600 mt-1">
+                {{ selectedFile.name }}
               </div>
             }
-          <div class="actions mt-2">
+          </div>
+
+          <!-- Submit button -->
+          <div class="mt-4">
             <button
-              mat-raised-button
-              color="primary"
               type="submit"
               [disabled]="!selectedFile || !eventForm.valid"
+              class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
             >
               إنشاء
             </button>
           </div>
         </form>
-      </mat-card-content>
-    </mat-card>
-  </div>
-
-  `,
-  styleUrl: './add-event.component.css'
+      </div>
+    </div>
+  `
 })
-export class AddEventComponent implements OnDestroy {
-
-
+export class AddEventComponent implements OnDestroy, OnInit {
   selectedFile: File | null = null;
   eventData = {
     name: '',
@@ -156,77 +163,63 @@ export class AddEventComponent implements OnDestroy {
   isLoggedIn: boolean = false;
   routeSub: Subscription;
   groupId: String | null = null;
-  loadingsub:Subscription
-  IsLoading:boolean=false
+  loadingsub: Subscription;
+  IsLoading: boolean = false;
 
   constructor(
     private service: Mainservice,
     private router: Router,
     private route: ActivatedRoute,
     public loadingservice: LoadingService
-    ) {
-
-    this.loadingsub=this.loadingservice.getstate().subscribe((isLoading)=>{
-      this.IsLoading=isLoading
+  ) {
+    this.loadingsub = this.loadingservice.getstate().subscribe(isLoading => {
+      this.IsLoading = isLoading;
     });
 
     this.routeSub = this.route.params.subscribe(params => {
       this.groupId = params['id'];
-      
     });
   }
 
+  ngOnInit(): void {}
+
   ngOnDestroy(): void {
     this.routeSub.unsubscribe();
-    this.loadingsub.unsubscribe()
+    this.loadingsub.unsubscribe();
   }
 
   onSubmit(): void {
     if (!this.selectedFile) return;
+
     const formData = new FormData();
     formData.append('file', this.selectedFile, this.eventData.name + this.selectedFile.name);
 
+    // Create or add event to group, depending on groupId
     if (this.groupId) {
       this.service.addEventToGroup(this.groupId, this.eventData, formData).subscribe({
-        next: (response) => {
-          this.router.navigate(["/group", this.groupId]);
+        next: () => {
+          this.router.navigate(['/group', this.groupId]);
         },
-        error: (error) => {
+        error: error => {
           console.error('Error:', error);
           alert('Failed to create event.');
         }
       });
     } else {
       this.service.addEvent(formData, this.eventData).subscribe({
-        next: (response) => {
-          this.router.navigate(["/home"]);
+        next: () => {
+          this.router.navigate(['/home']);
         },
-        error: (error) => {
+        error: error => {
           console.error('Error:', error);
           alert('Failed to create event.');
-        },
+        }
       });
     }
   }
 
   async takepic(event: Event) {
-    try {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Base64,
-        source: CameraSource.Camera
-      });
 
-      if (image.base64String) {
-        // Convert base64 to File object
-        const base64Response = await fetch(`data:image/jpeg;base64,${image.base64String}`);
-        const blob = await base64Response.blob();
-        this.selectedFile = new File([blob], 'camera_photo.jpg', { type: 'image/jpeg' });
-      }
-    } catch (error) {
-      console.error('Error taking photo:', error);
-    }
   }
 
   onFileSelected(event: Event): void {

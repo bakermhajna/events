@@ -14,7 +14,61 @@ import { LoadingService } from '../../Services/isloading.service';
   selector: 'app-add-group',
   standalone: true,
   imports: [FormsModule,MatFormFieldModule,MatInputModule,MatCardModule,MatButtonModule,ReactiveFormsModule],
-  templateUrl: './add-group.component.html',
+  template:`
+  <div class="max-w-md mx-auto p-4">
+  <!-- Container with a card-like look -->
+  <div class="bg-white shadow-md rounded-md p-4">
+    <h2 class="text-xl font-semibold mb-4">اضف مجموعة</h2>
+
+    <!-- Use (ngSubmit) with Angular forms if you have FormsModule imported -->
+    <form (ngSubmit)="onSubmit()" #eventForm="ngForm" class="space-y-4">
+      <!-- Group name -->
+      <div>
+        <label
+          for="name"
+          class="block mb-1 text-gray-700 font-medium"
+          >اسم المجموعة</label
+        >
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="المجموعة"
+          [(ngModel)]="groupName"
+          required
+          class="border border-gray-300 p-2 w-full rounded"
+        />
+      </div>
+
+      <!-- File Upload -->
+      <div>
+        <label for="file" class="block mb-1 text-gray-700 font-medium"
+          >Event Image:</label
+        >
+        <input
+          type="file"
+          id="file"
+          required
+          (change)="onFileSelected($event)"
+          class="block border border-gray-300 p-2 w-full rounded"
+        />
+      </div>
+
+      <!-- Submit button -->
+      <div class="pt-2">
+        <button
+          type="submit"
+          [disabled]="!eventForm.valid"
+          class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        >
+          اضف المجموعة
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+  `,
   styleUrl: './add-group.component.css'
 })
 export class AddGroupComponent implements OnInit,OnDestroy {

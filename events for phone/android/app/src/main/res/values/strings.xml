@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">events</string>
-    <string name="title_activity_main">events</string>
-    <string name="package_name">com.events.app</string>
-    <string name="custom_url_scheme">com.events.app</string>
-</resources>

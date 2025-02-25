@@ -23,18 +23,27 @@ import { Customer } from '../../models/customer';
     MatProgressSpinnerModule
   ],
   template:`
-  <div class="mb-3">
-  <input type="text" class="form-control" [(ngModel)]="searchTerm" 
-         (ngModelChange)="searchUsers()" 
-         placeholder="البحث عن مستخدمين...">
+<div class="mb-4">
+  <!-- Search input -->
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="searchUsers()"
+    placeholder="البحث عن مستخدمين..."
+    class="border border-gray-300 rounded px-3 py-2 w-full"
+  />
 </div>
 
 @if (searchResults.length > 0) {
-  <div class="list-group mb-4">
+  <!-- List container with spacing between items -->
+  <div class="space-y-2 mb-4">
     @for (user of searchResults; track user.id) {
-      <div class="list-group-item d-flex justify-content-between align-items-center">
-        {{user.name}}
-        <button class="btn btn-sm btn-primary" (click)="addUserToGroup(user)">
+      <div class="flex items-center justify-between bg-white p-2 rounded shadow">
+        <span>{{ user.name }}</span>
+        <button
+          (click)="addUserToGroup(user)"
+          class="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
           إضافة
         </button>
       </div>

@@ -11,7 +11,6 @@ import { AccountComponent } from './pages/account/account.component';
 import { MyEventsComponent } from './pages/my-events/my-events.component';
 import { MyInvitationsComponent } from './pages/my-invitations/my-invitations.component';
 import { MyEventComponent } from './pages/my-event/my-event.component';
-import { ThemeTestComponent } from './theme-test/theme-test.component';
 
 export const routes: Routes = 
 [
@@ -75,11 +74,7 @@ export const routes: Routes =
         component: MyInvitationsComponent,
         canActivate: [AuthGuard]
     },
-    { 
-        path: 'theme-test', 
-        component: ThemeTestComponent,
-        canActivate: [AuthGuard]
-    },
+
     // Add a catch-all route for undefined routes
     { 
         path: '**', 

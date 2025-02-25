@@ -148,6 +148,14 @@ constructor(@Inject(PLATFORM_ID) private platformId: Object ,public http :HttpCl
   login(body: any): Observable<HttpResponse<authResponse>> {
     return this.post<authResponse>(`${this.api}/auth/login`, body);
   }
+
+  Glogin(body: any): Observable<HttpResponse<authResponse>> {
+    return this.post<authResponse>(`${this.api}/auth/Glogin`, body);
+  }
+
+  register(body: any): Observable<HttpResponse<authResponse>> {
+    return this.post<authResponse>(`${this.api}/auth/register`, body);
+  }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
                                 //utils
 
