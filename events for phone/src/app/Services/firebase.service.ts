@@ -4,8 +4,11 @@ import { firstValueFrom } from 'rxjs';
 import { Mainservice } from './main.service';
 import { LoadingService } from './isloading.service';
 import { AuthServiceObsv } from './authobsv.service';
-
-
+import { Platform } from '@angular/cdk/platform';
+import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
+import { initializeApp } from 'firebase/app';
+import { environment } from '../../environments/environment';
+ 
 interface userinterface {
   accessToken: String | null;
   uid: String | null;
@@ -20,67 +23,12 @@ interface userinterface {
 })
 export class FirebaseService {
 
-  // constructor(
-  //   private mainService: Mainservice,
-  //   private lodingservice: LoadingService,
-  //   private router: Router,
-  //   private login:AuthServiceObsv
-  // ) {
+    constructor(){
+       initializeApp(environment.firebaseConfig);
+    }
 
-    
-  // }
+    public async signInWithGoogle(): Promise<void> {
+      await FirebaseAuthentication.signInWithGoogle();
+    }
 
-  // private auth = getAuth(); 
-  // private user: userinterface = {} as userinterface;
-
-
-  // async googleSignIn$() {
-
-  //   const provider = new GoogleAuthProvider();
-  //   try {
-  //     const credential = await signInWithPopup(this.auth, provider);
-      
-  //     this.user = {
-  //       accessToken: await credential.user.getIdToken(),
-  //       uid: credential.user.uid,
-  //       displayName: credential.user.displayName,
-  //       email: credential.user.email,
-  //       phoneNumber: credential.user.phoneNumber,
-  //       photoURL: credential.user.photoURL
-  //     };
-
-  //     try {
-  //       await firstValueFrom(this.mainService.register({
-  //         Gid: this.user.uid, 
-  //         Email: this.user.email,
-  //         name: this.user.displayName,
-  //         phoneNumber: this.user.phoneNumber,
-  //         photoURL: this.user.photoURL
-  //       }));
-  //     } catch (err) {
-  //       console.warn("User registration failed (maybe already registered):", err);
-  //     }
-
-  //     try {
-  //       const loginRes = await firstValueFrom(this.mainService.Glogin({
-  //         token: this.user.accessToken
-  //       }));
-        
-  //       localStorage.setItem('token', loginRes.body?.token || '');
-  //       localStorage.setItem('user', JSON.stringify(loginRes.body?.customer));
-  //       this.login.getIsLoggedInSubject().next(true)
-  //       this.lodingservice.setfalse();
-  //         this.router.navigate(['/home']);
-
-  //     } catch (err) {
-  //       console.error("Glogin error:", err);
-  //     }
-
-  //     this.lodingservice.setfalse();
-
-  //   } catch (err) {
-  //     this.lodingservice.setfalse();
-  //     console.error('Google sign-in error', err);
-  //   }
-  // }
 }

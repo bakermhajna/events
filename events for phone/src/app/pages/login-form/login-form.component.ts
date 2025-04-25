@@ -130,6 +130,7 @@ export class LoginFormComponent implements OnDestroy,OnInit {
   }
 
   signInWithGoogle(): void {
+    this.fb.signInWithGoogle()
     //this.loadingservice.settrue()
     // this.fb.googleSignIn$();
   }

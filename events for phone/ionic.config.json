@@ -1,0 +1,7 @@
+{
+  "name": "event-front",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
